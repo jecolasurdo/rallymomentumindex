@@ -54,7 +54,7 @@ def scrape(raw_directory="research/raw", num_pages=165):
     opened. Changing the browser window can cause the DOM to restructure, which
     can cause the XPATH assumptions to become invalid. Not worth fixing at the
     moment, but be warned.
-    """
+    """ 
 
     page_num = 1
     previous_num = 0
