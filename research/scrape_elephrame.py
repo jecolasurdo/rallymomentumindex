@@ -2,7 +2,8 @@ from selenium import webdriver
 import time
 import hashlib
 import os
-
+import os.path
+from lxml import html
 
 BASE_URL = "https://elephrame.com/textbook/BLM/chart"
 PAGE_XPATH = "//div[@id='blm-results']/div/ul/li[3]/input"
@@ -106,9 +107,37 @@ def scrape(raw_directory="research/raw", num_pages=165):
     driver.quit()
 
 
+def extract(raw_directory="research/raw"):
+    """Extract the BLM data from raw HTML files in a directory and save the
+    resulting data to disk.
+
+    Parameters
+    ----------
+    raw_directory : str
+        The directory to find raw html files to be extracted.
+    """
+
+    raw_dir = os.path.join(os.getcwd(), raw_directory)
+    file_names = [f for f in os.listdir(raw_dir) if os.path.isfile(os.path.join(raw_dir, f)) and f.endswith(".html")]
+    for file_name in file_names:
+        f = open(os.path.join(raw_dir, file_name), "r")
+        tree = html.fromstring(f.read())
+        f.close()
+        items_list_div = tree.xpath('//div[@class="item chart"]')
+        for item_div in items_list_div:
+            location = item_div.xpath('div/div[@class="item-protest-location"]/text()')
+            protest_start = item_div.xpath('div/div/div[@class="protest-start"]/text()')
+            protest_end = item_div.xpath('div/div/div[@class="protest-end"]/text()')
+            protest_subject = item_div.xpath('div/ul/li[@class="item-protest-subject"]/text()')
+            protest_participants = item_div.xpath('div/ul/li[@class="item-protest-participants"]/text()')
+            protest_time = item_div.xpath('div/ul/li[@class="item-protest-time"]/text()')
+            protest_description = item_div.xpath('div/ul/li[@class="item-protest-description"]/text()')
+            protest_url= item_div.xpath('div/ul/li[@class="item-protest-url"]/p/a/text()')
+            print(protest_participants, protest_time, protest_description, protest_url)   
+
 def _hash(s):
     return hashlib.md5(s.encode('utf-8')).hexdigest()
 
 
 if __name__ == "__main__":
-    scrape()
+    extract()

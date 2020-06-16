@@ -2,3 +2,4 @@ wheel
 git+https://github.com/abenassi/Google-Search-API
 selenium
 textpipe
+lxml
