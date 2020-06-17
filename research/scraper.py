@@ -17,7 +17,7 @@ WAIT_INCREMENT_INTEVAL = 1
 EXTRACT_FILE_NAME = "extracted_data.json"
 
 
-def scrape(raw_directory="research/raw", num_pages=165):
+def scrape(raw_directory="research/data/raw_html", num_pages=165):
     """Scrapes raw HTML BLM data for each page at https://elephrame.com/textbook/BLM/chart
     and saves the HTML for each page to a local directory.
 
@@ -109,7 +109,7 @@ def scrape(raw_directory="research/raw", num_pages=165):
     driver.quit()
 
 
-def extract(raw_directory="research/raw"):
+def extract(raw_directory="research/data/raw_html"):
     """Extract the BLM data from raw HTML files in a directory and save the
     resulting data to disk.
 
@@ -134,25 +134,48 @@ def extract(raw_directory="research/raw"):
             results.append({
                 "location": _first(item_div.xpath(
                     'div/div[@class="item-protest-location"]/text()')),
-                "protest_start": _first(item_div.xpath(
+                "start": _first(item_div.xpath(
                     'div/div/div[@class="protest-start"]/text()')),
-                "protest_end": _first(item_div.xpath(
+                "end": _first(item_div.xpath(
                     'div/div/div[@class="protest-end"]/text()')),
-                "protest_subject": _first(item_div.xpath(
+                "subject": _first(item_div.xpath(
                     'div/ul/li[@class="item-protest-subject"]/text()')),
-                "protest_participants": _first(item_div.xpath(
+                "participants": _first(item_div.xpath(
                     'div/ul/li[@class="item-protest-participants"]/text()')),
-                "protest_time": _first(item_div.xpath(
+                "time": _first(item_div.xpath(
                     'div/ul/li[@class="item-protest-time"]/text()')),
-                "protest_description": _first(item_div.xpath(
+                "description": _first(item_div.xpath(
                     'div/ul/li[@class="item-protest-description"]/text()')),
-                "protest_urls": item_div.xpath(
+                "urls": item_div.xpath(
                     'div/ul/li[@class="item-protest-url"]/p/a/text()'),
             })
     print("Writing to {}...".format(EXTRACT_FILE_NAME))
     with open(os.path.join(raw_dir, EXTRACT_FILE_NAME), "w") as f:
         f.write(json.dumps(results, indent=2))
     print("Done.")
+
+def clean(extracted_file="research/data/extracted.json"):
+    with open(os.path.join(os.getcwd(), extracted_file), 'r') as f:
+        extracted = json.load(f)
+
+    cleaned = []
+    for item in extracted:
+       cleaned.append(_clean_item(item))
+
+    with open(os.path.join(os.getcwd(), "research/data/cleaned.json"), 'w') as f:
+        f.write(json.dumps(cleaned, indent=2))
+
+def _clean_item(item):
+    return {
+        "location": item["location"],
+        "start": item["start"],
+        "end": item["end"],
+        "subject": item["subject"],
+        "participant_count": item["participants"],
+        "time_of_day": item["time"],
+        "description": item["description"],
+        "urls": item["urls"]
+    }
 
 
 def _first(items):
@@ -164,4 +187,4 @@ def _hash(s):
 
 
 if __name__ == "__main__":
-    extract()
+    clean()
