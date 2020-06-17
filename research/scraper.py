@@ -180,7 +180,7 @@ def _clean_item(item):
         "magnitude": _fmt_participants(item["participants"]),
         "timeframe": _fmt_timeframe(item["time"]),
         "description": _fmt_description(item["description"]),
-        "urls": item["urls"]
+        "urls": list(_fmt_urls(item["urls"]))
     }
 
 
@@ -242,6 +242,14 @@ def _fmt_timeframe(t):
 def _fmt_description(d):
     return d.strip()
 
+
+def _fmt_urls(urls):
+    for url in urls:
+        url = url.strip()
+        yield {
+            "hash": _hash(url),
+            "url": url
+        }
 
 def _first(items):
     return items[0] if len(items) > 0 else ""
