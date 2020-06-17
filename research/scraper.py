@@ -178,8 +178,8 @@ def _clean_item(item):
         "end": _fmt_date(item["end"]),
         "subject": _fmt_subject(item["subject"]),
         "magnitude": _fmt_participants(item["participants"]),
-        "time_of_day": item["time"],
-        "description": item["description"],
+        "timeframe": _fmt_timeframe(item["time"]),
+        "description": _fmt_description(item["description"]),
         "urls": item["urls"]
     }
 
@@ -187,8 +187,10 @@ def _clean_item(item):
 def _fmt_location(s):
     return s.strip()
 
+
 def _fmt_active(d):
     return True if d == "Present" else False
+
 
 def _fmt_date(d):
     if d[:3] == " - ":
@@ -197,8 +199,10 @@ def _fmt_date(d):
         return None
     return datetime.strptime(d, "%A, %B %d, %Y").isoformat()
 
+
 def _fmt_subject(s):
     return s.strip()
+
 
 def _fmt_participants(p):
     if "Unclear" in p:
@@ -212,10 +216,32 @@ def _fmt_participants(p):
     if "Thousands" in p:
         return 1000
     m = re.search(r'\d+', p)
-    if m is not None: 
+    if m is not None:
         n = int(m.group(0))
         return 10 ** round(math.log(n, 10))
     return -2
+
+
+def _fmt_timeframe(t):
+    t = t.strip().lower()
+    if t.endswith(" (est.)"):
+        t = t[:-7]
+    if t in ["unclear", "unclar"]:
+        return "unknown"
+    if t in ["morning", "afternoon", "evening"]:
+        return t
+    if t in ["afterrnoon", "afternon", "aftermoon", "afternoon-evening", "afteroon-evening", "afternoon-morning"]:
+        return "afternoon"
+    if t == "evening-morning":
+        return "evening"
+    if t in ["morning-evening", "morning-afternoon", "continuous", "continous"]:
+        return "morning"
+    return "unknown"
+
+
+def _fmt_description(d):
+    return d.strip()
+
 
 def _first(items):
     return items[0] if len(items) > 0 else ""

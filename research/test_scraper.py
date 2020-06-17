@@ -2,11 +2,12 @@
 import research.scraper as scraper
 from datetime import datetime
 
+
 def test__fmt_date():
     tt = [
         {
             "in": " - Thursday, July 6, 2016",
-            "out": datetime(2016, 7, 6).isoformat() 
+            "out": datetime(2016, 7, 6).isoformat()
         },
         {
             "in": "Thursday, July 6, 2016",
@@ -14,7 +15,7 @@ def test__fmt_date():
         },
         {
             "in": "",
-            "out": None 
+            "out": None
         },
         {
             "in": "Present",
@@ -29,9 +30,10 @@ def test__fmt_date():
     for t in tt:
         assert scraper._fmt_date(t["in"]) == t["out"]
 
+
 def test__fmt_participants():
     tt = [
-        ## Vague cases
+        # Vague cases
         {
             "in": "Unclear # of demonstrators",
             "out": -1
@@ -40,7 +42,7 @@ def test__fmt_participants():
             "in": "Varied demonstrators",
             "out": -1
         },
-        ## Long form magnitudes
+        # Long form magnitudes
         {
             "in": "Dozens of demonstrators",
             "out": 10
@@ -53,14 +55,14 @@ def test__fmt_participants():
             "in": "Thousands of demonstrators",
             "out": 1000
         },
-        ## Numeric estimates
+        # Numeric estimates
         {
             "in": "1-3 demonstrators",
             "out": 1
         },
         {
             "in": "125 demonstrators",
-            "out": 100 
+            "out": 100
         },
         {
             "in": "12+ demonstrators",
@@ -78,7 +80,7 @@ def test__fmt_participants():
             "in": "11000-15000 demonstrators",
             "out": 10000
         },
-        ## Garbage
+        # Garbage
         {
             "in": "TBD",
             "out": -2
