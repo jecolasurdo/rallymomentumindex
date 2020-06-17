@@ -4,6 +4,7 @@ import hashlib
 import os
 import os.path
 from lxml import html
+import json
 
 BASE_URL = "https://elephrame.com/textbook/BLM/chart"
 PAGE_XPATH = "//div[@id='blm-results']/div/ul/li[3]/input"
@@ -13,6 +14,7 @@ SUCCESS_DOWNGRADE_INTERVAL = 5
 MINIMUM_LOAD_WAIT_SECS = 1
 WAIT_DECREMENT_INTEVAL = 1
 WAIT_INCREMENT_INTEVAL = 1
+EXTRACT_FILE_NAME = "extracted_data.json"
 
 
 def scrape(raw_directory="research/raw", num_pages=165):
@@ -55,7 +57,7 @@ def scrape(raw_directory="research/raw", num_pages=165):
     opened. Changing the browser window can cause the DOM to restructure, which
     can cause the XPATH assumptions to become invalid. Not worth fixing at the
     moment, but be warned.
-    """ 
+    """
 
     page_num = 1
     previous_num = 0
@@ -117,23 +119,45 @@ def extract(raw_directory="research/raw"):
         The directory to find raw html files to be extracted.
     """
 
+    results = []
     raw_dir = os.path.join(os.getcwd(), raw_directory)
-    file_names = [f for f in os.listdir(raw_dir) if os.path.isfile(os.path.join(raw_dir, f)) and f.endswith(".html")]
+    print("Getting list of raw html files...")
+    file_names = [f for f in os.listdir(raw_dir) if os.path.isfile(
+        os.path.join(raw_dir, f)) and f.endswith(".html")]
+    print("Extracting data from raw html...")
     for file_name in file_names:
         f = open(os.path.join(raw_dir, file_name), "r")
         tree = html.fromstring(f.read())
         f.close()
         items_list_div = tree.xpath('//div[@class="item chart"]')
         for item_div in items_list_div:
-            location = item_div.xpath('div/div[@class="item-protest-location"]/text()')
-            protest_start = item_div.xpath('div/div/div[@class="protest-start"]/text()')
-            protest_end = item_div.xpath('div/div/div[@class="protest-end"]/text()')
-            protest_subject = item_div.xpath('div/ul/li[@class="item-protest-subject"]/text()')
-            protest_participants = item_div.xpath('div/ul/li[@class="item-protest-participants"]/text()')
-            protest_time = item_div.xpath('div/ul/li[@class="item-protest-time"]/text()')
-            protest_description = item_div.xpath('div/ul/li[@class="item-protest-description"]/text()')
-            protest_url= item_div.xpath('div/ul/li[@class="item-protest-url"]/p/a/text()')
-            print(protest_participants, protest_time, protest_description, protest_url)   
+            results.append({
+                "location": _first(item_div.xpath(
+                    'div/div[@class="item-protest-location"]/text()')),
+                "protest_start": _first(item_div.xpath(
+                    'div/div/div[@class="protest-start"]/text()')),
+                "protest_end": _first(item_div.xpath(
+                    'div/div/div[@class="protest-end"]/text()')),
+                "protest_subject": _first(item_div.xpath(
+                    'div/ul/li[@class="item-protest-subject"]/text()')),
+                "protest_participants": _first(item_div.xpath(
+                    'div/ul/li[@class="item-protest-participants"]/text()')),
+                "protest_time": _first(item_div.xpath(
+                    'div/ul/li[@class="item-protest-time"]/text()')),
+                "protest_description": _first(item_div.xpath(
+                    'div/ul/li[@class="item-protest-description"]/text()')),
+                "protest_urls": item_div.xpath(
+                    'div/ul/li[@class="item-protest-url"]/p/a/text()'),
+            })
+    print("Writing to {}...".format(EXTRACT_FILE_NAME))
+    with open(os.path.join(raw_dir, EXTRACT_FILE_NAME), "w") as f:
+        f.write(json.dumps(results, indent=2))
+    print("Done.")
+
+
+def _first(items):
+    return items[0] if len(items) > 0 else ""
+
 
 def _hash(s):
     return hashlib.md5(s.encode('utf-8')).hexdigest()
