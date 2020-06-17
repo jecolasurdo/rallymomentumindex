@@ -190,6 +190,9 @@ def hydrate_codex(clean_file="research/data/cleaned.json"):
         for u in report["urls"]:
             url, hsh = u["url"], u["hash"]
             print("Processing {}: {}".format(hsh, url))
+            if "twitter" in url:
+                print("  Skipping twitter.")
+                continue
 
             hsh_file = os.path.join(os.getcwd(), "research/data/codex", hsh + ".txt")
             if os.path.exists(hsh_file):
@@ -199,7 +202,7 @@ def hydrate_codex(clean_file="research/data/cleaned.json"):
             try:
                 response = urllib.request.urlopen(url)
             except urllib.error.HTTPError as e:
-                print(e)
+                print("  {}".format(e))
                 continue
             except Exception as e:
                 print(e)
@@ -208,8 +211,7 @@ def hydrate_codex(clean_file="research/data/cleaned.json"):
             print("  Cleaning...")
             document = doc.Doc(response.read()).clean
             if "JavaScript" in document:
-                print("  Possible JS warning!")
-
+                print("  JavaScript issue at", url)
 
             print("  Writing to disk...")
             with open(os.path.join(os.getcwd(), "research/data/codex", hsh_file), 'w') as f:
