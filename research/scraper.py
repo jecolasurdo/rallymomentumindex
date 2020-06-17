@@ -6,6 +6,8 @@ import os.path
 from lxml import html
 import json
 from datetime import datetime
+import re
+import math
 
 BASE_URL = "https://elephrame.com/textbook/BLM/chart"
 PAGE_XPATH = "//div[@id='blm-results']/div/ul/li[3]/input"
@@ -175,7 +177,7 @@ def _clean_item(item):
         "start": _fmt_date(item["start"]),
         "end": _fmt_date(item["end"]),
         "subject": _fmt_subject(item["subject"]),
-        "participant_count": item["participants"],
+        "magnitude": _fmt_participants(item["participants"]),
         "time_of_day": item["time"],
         "description": item["description"],
         "urls": item["urls"]
@@ -199,8 +201,21 @@ def _fmt_subject(s):
     return s.strip()
 
 def _fmt_participants(p):
-    print(p)
-    return p
+    if "Unclear" in p:
+        return -1
+    if "Varied" in p:
+        return -1
+    if "Dozens" in p:
+        return 10
+    if "Hundreds" in p:
+        return 100
+    if "Thousands" in p:
+        return 1000
+    m = re.search(r'\d+', p)
+    if m is not None: 
+        n = int(m.group(0))
+        return 10 ** round(math.log(n, 10))
+    return -2
 
 def _first(items):
     return items[0] if len(items) > 0 else ""
