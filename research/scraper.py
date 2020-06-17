@@ -2,9 +2,11 @@ import json
 import os
 import os.path
 import time
+import urllib
 
 from lxml import html
 from selenium import webdriver
+from textpipe import doc
 
 from research import fmt, utils
 
@@ -177,3 +179,40 @@ def clean(extracted_file="research/data/extracted.json"):
 
     with open(os.path.join(os.getcwd(), "research/data/cleaned.json"), 'w') as f:
         f.write(json.dumps(cleaned, indent=2))
+
+
+def hydrate_codex(clean_file="research/data/cleaned.json"):
+    print("Loading cleaned data...")
+    with open(os.path.join(os.getcwd(), clean_file), 'r') as f:
+        reports = json.load(f)
+
+    for report in reports:
+        for u in report["urls"]:
+            url, hsh = u["url"], u["hash"]
+            print("Processing {}: {}".format(hsh, url))
+
+            hsh_file = os.path.join(os.getcwd(), "research/data/codex", hsh + ".txt")
+            if os.path.exists(hsh_file):
+                print("  URL already processed. Skipping.")
+                continue
+
+            try:
+                response = urllib.request.urlopen(url)
+            except urllib.error.HTTPError as e:
+                print(e)
+                continue
+            except Exception as e:
+                print(e)
+                raise e
+                
+            print("  Cleaning...")
+            document = doc.Doc(response.read()).clean
+            if "JavaScript" in document:
+                print("  Possible JS warning!")
+
+
+            print("  Writing to disk...")
+            with open(os.path.join(os.getcwd(), "research/data/codex", hsh_file), 'w') as f:
+                f.write(document)
+    
+    print("Done.")

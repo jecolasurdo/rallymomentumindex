@@ -1,3 +1,3 @@
-import research.scraper as scraper
+from research import scraper
 
-scraper.clean()
+scraper.hydrate_codex()
