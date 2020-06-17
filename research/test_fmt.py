@@ -1,9 +1,9 @@
 
-import research.scraper as scraper
 from datetime import datetime
 
+from research import fmt
 
-def test__fmt_date():
+def test_date():
     tt = [
         {
             "in": " - Thursday, July 6, 2016",
@@ -28,10 +28,10 @@ def test__fmt_date():
     ]
 
     for t in tt:
-        assert scraper._fmt_date(t["in"]) == t["out"]
+        assert fmt.date(t["in"]) == t["out"]
 
 
-def test__fmt_participants():
+def test_participants():
     tt = [
         # Vague cases
         {
@@ -96,4 +96,4 @@ def test__fmt_participants():
     ]
 
     for t in tt:
-        assert scraper._fmt_participants(t["in"]) == t["out"]
+        assert fmt.participants(t["in"]) == t["out"]

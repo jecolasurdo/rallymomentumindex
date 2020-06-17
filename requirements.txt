@@ -4,3 +4,4 @@ selenium
 textpipe
 lxml
 pytest
+pylint

@@ -1,13 +1,12 @@
-from selenium import webdriver
-import time
-import hashlib
+import json
 import os
 import os.path
+import time
+
 from lxml import html
-import json
-from datetime import datetime
-import re
-import math
+from selenium import webdriver
+
+from research import fmt, utils
 
 BASE_URL = "https://elephrame.com/textbook/BLM/chart"
 PAGE_XPATH = "//div[@id='blm-results']/div/ul/li[3]/input"
@@ -82,7 +81,7 @@ def scrape(raw_directory="research/data/raw_html", num_pages=165):
                 raise Exception("Page number hasn't changed yet.")
 
             html_source = driver.page_source
-            current_hash = _hash(html_source)
+            current_hash = utils.hash(html_source)
             if current_hash == previous_hash:
                 raise Exception("Page content hasn't changed yet.")
             previous_hash = current_hash
@@ -135,19 +134,19 @@ def extract(raw_directory="research/data/raw_html"):
         items_list_div = tree.xpath('//div[@class="item chart"]')
         for item_div in items_list_div:
             results.append({
-                "location": _first(item_div.xpath(
+                "location": utils.first(item_div.xpath(
                     'div/div[@class="item-protest-location"]/text()')),
-                "start": _first(item_div.xpath(
+                "start": utils.first(item_div.xpath(
                     'div/div/div[@class="protest-start"]/text()')),
-                "end": _first(item_div.xpath(
+                "end": utils.first(item_div.xpath(
                     'div/div/div[@class="protest-end"]/text()')),
-                "subject": _first(item_div.xpath(
+                "subject": utils.first(item_div.xpath(
                     'div/ul/li[@class="item-protest-subject"]/text()')),
-                "participants": _first(item_div.xpath(
+                "participants": utils.first(item_div.xpath(
                     'div/ul/li[@class="item-protest-participants"]/text()')),
-                "time": _first(item_div.xpath(
+                "time": utils.first(item_div.xpath(
                     'div/ul/li[@class="item-protest-time"]/text()')),
-                "description": _first(item_div.xpath(
+                "description": utils.first(item_div.xpath(
                     'div/ul/li[@class="item-protest-description"]/text()')),
                 "urls": item_div.xpath(
                     'div/ul/li[@class="item-protest-url"]/p/a/text()'),
@@ -164,101 +163,17 @@ def clean(extracted_file="research/data/extracted.json"):
 
     cleaned = []
     for item in extracted:
-        cleaned.append(_clean_item(item))
+        cleaned.append({
+            "location": fmt.location(item["location"]),
+            "active": fmt.active(item["start"]),
+            "start": fmt.date(item["start"]),
+            "end": fmt.date(item["end"]),
+            "subject": fmt.subject(item["subject"]),
+            "magnitude": fmt.participants(item["participants"]),
+            "timeframe": fmt.timeframe(item["time"]),
+            "description": fmt.description(item["description"]),
+            "urls": list(fmt.urls(item["urls"]))
+        })
 
     with open(os.path.join(os.getcwd(), "research/data/cleaned.json"), 'w') as f:
         f.write(json.dumps(cleaned, indent=2))
-
-
-def _clean_item(item):
-    return {
-        "location": _fmt_location(item["location"]),
-        "active": _fmt_active(item["start"]),
-        "start": _fmt_date(item["start"]),
-        "end": _fmt_date(item["end"]),
-        "subject": _fmt_subject(item["subject"]),
-        "magnitude": _fmt_participants(item["participants"]),
-        "timeframe": _fmt_timeframe(item["time"]),
-        "description": _fmt_description(item["description"]),
-        "urls": list(_fmt_urls(item["urls"]))
-    }
-
-
-def _fmt_location(s):
-    return s.strip()
-
-
-def _fmt_active(d):
-    return True if d == "Present" else False
-
-
-def _fmt_date(d):
-    if d[:3] == " - ":
-        d = d[3:]
-    if d in ["", "Present"]:
-        return None
-    return datetime.strptime(d, "%A, %B %d, %Y").isoformat()
-
-
-def _fmt_subject(s):
-    return s.strip()
-
-
-def _fmt_participants(p):
-    if "Unclear" in p:
-        return -1
-    if "Varied" in p:
-        return -1
-    if "Dozens" in p:
-        return 10
-    if "Hundreds" in p:
-        return 100
-    if "Thousands" in p:
-        return 1000
-    m = re.search(r'\d+', p)
-    if m is not None:
-        n = int(m.group(0))
-        return 10 ** round(math.log(n, 10))
-    return -2
-
-
-def _fmt_timeframe(t):
-    t = t.strip().lower()
-    if t.endswith(" (est.)"):
-        t = t[:-7]
-    if t in ["unclear", "unclar"]:
-        return "unknown"
-    if t in ["morning", "afternoon", "evening"]:
-        return t
-    if t in ["afterrnoon", "afternon", "aftermoon", "afternoon-evening", "afteroon-evening", "afternoon-morning"]:
-        return "afternoon"
-    if t == "evening-morning":
-        return "evening"
-    if t in ["morning-evening", "morning-afternoon", "continuous", "continous"]:
-        return "morning"
-    return "unknown"
-
-
-def _fmt_description(d):
-    return d.strip()
-
-
-def _fmt_urls(urls):
-    for url in urls:
-        url = url.strip()
-        yield {
-            "hash": _hash(url),
-            "url": url
-        }
-
-
-def _first(items):
-    return items[0] if len(items) > 0 else ""
-
-
-def _hash(s):
-    return hashlib.md5(s.encode('utf-8')).hexdigest()
-
-
-if __name__ == "__main__":
-    clean()
