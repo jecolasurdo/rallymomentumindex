@@ -251,6 +251,7 @@ def _fmt_urls(urls):
             "url": url
         }
 
+
 def _first(items):
     return items[0] if len(items) > 0 else ""
 
