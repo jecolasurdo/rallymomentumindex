@@ -3,6 +3,8 @@ import os
 import os.path
 import time
 import urllib
+from datetime import datetime
+import sys
 
 from lxml import html
 from selenium import webdriver
@@ -189,32 +191,36 @@ def hydrate_codex(clean_file="research/data/cleaned.json"):
     for report in reports:
         for u in report["urls"]:
             url, hsh = u["url"], u["hash"]
-            print("Processing {}: {}".format(hsh, url))
+            prush("{} - Processing {}: {}".format(datetime.now(), hsh, url))
             if "twitter" in url:
-                print("  Skipping twitter.")
+                prush("  Skipping twitter.")
                 continue
 
             hsh_file = os.path.join(os.getcwd(), "research/data/codex", hsh + ".txt")
             if os.path.exists(hsh_file):
-                print("  URL already processed. Skipping.")
+                prush("  URL already processed. Skipping.")
                 continue
 
             try:
                 response = urllib.request.urlopen(url)
             except urllib.error.HTTPError as e:
-                print("  {}".format(e))
+                prush("  {}".format(e))
                 continue
             except Exception as e:
-                print(e)
+                prush(e)
                 raise e
                 
-            print("  Cleaning...")
+            prush("  Cleaning...")
             document = doc.Doc(response.read()).clean
             if "JavaScript" in document:
-                print("  JavaScript issue at", url)
+                prush("  JavaScript issue at", url)
 
-            print("  Writing to disk...")
+            prush("  Writing to disk...")
             with open(os.path.join(os.getcwd(), "research/data/codex", hsh_file), 'w') as f:
                 f.write(document)
     
     print("Done.")
+
+def prush(*args):
+    print(*args)
+    sys.stdout.flush()
