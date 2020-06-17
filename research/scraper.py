@@ -5,6 +5,7 @@ import os
 import os.path
 from lxml import html
 import json
+from datetime import datetime
 
 BASE_URL = "https://elephrame.com/textbook/BLM/chart"
 PAGE_XPATH = "//div[@id='blm-results']/div/ul/li[3]/input"
@@ -154,28 +155,43 @@ def extract(raw_directory="research/data/raw_html"):
         f.write(json.dumps(results, indent=2))
     print("Done.")
 
+
 def clean(extracted_file="research/data/extracted.json"):
     with open(os.path.join(os.getcwd(), extracted_file), 'r') as f:
         extracted = json.load(f)
 
     cleaned = []
     for item in extracted:
-       cleaned.append(_clean_item(item))
+        cleaned.append(_clean_item(item))
 
     with open(os.path.join(os.getcwd(), "research/data/cleaned.json"), 'w') as f:
         f.write(json.dumps(cleaned, indent=2))
 
+
 def _clean_item(item):
     return {
-        "location": item["location"],
-        "start": item["start"],
-        "end": item["end"],
+        "location": _fmt_location(item["location"]),
+        "start": _fmt_date(item["start"]),
+        "end": _fmt_date(item["end"]),
         "subject": item["subject"],
         "participant_count": item["participants"],
         "time_of_day": item["time"],
         "description": item["description"],
         "urls": item["urls"]
     }
+
+
+def _fmt_location(s):
+    return s.strip()
+
+
+def _fmt_date(d):
+    if d == "":
+        return None
+    if d[:3] == " - ":
+        d = d[3:]
+    d = datetime.strptime(d, "%A, %B %d, %Y")
+    return d
 
 
 def _first(items):
