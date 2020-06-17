@@ -6,16 +6,24 @@ def test__fmt_date():
     test_cases = [
         {
             "input": " - Thursday, July 6, 2016",
-            "output": datetime(2016, 7, 6) 
+            "output": datetime(2016, 7, 6).isoformat() 
         },
         {
             "input": "Thursday, July 6, 2016",
-            "output": datetime(2016, 7, 6)
+            "output": datetime(2016, 7, 6).isoformat()
         },
         {
             "input": "",
             "output": None 
         },
+        {
+            "input": "Present",
+            "output": None
+        },
+        {
+            "input": " - Present",
+            "output": None
+        }
     ]
 
     for test_case in test_cases:

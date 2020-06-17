@@ -171,9 +171,10 @@ def clean(extracted_file="research/data/extracted.json"):
 def _clean_item(item):
     return {
         "location": _fmt_location(item["location"]),
+        "active": _fmt_active(item["start"]),
         "start": _fmt_date(item["start"]),
         "end": _fmt_date(item["end"]),
-        "subject": item["subject"],
+        "subject": _fmt_subject(item["subject"]),
         "participant_count": item["participants"],
         "time_of_day": item["time"],
         "description": item["description"],
@@ -184,15 +185,22 @@ def _clean_item(item):
 def _fmt_location(s):
     return s.strip()
 
+def _fmt_active(d):
+    return True if d == "Present" else False
 
 def _fmt_date(d):
-    if d == "":
-        return None
     if d[:3] == " - ":
         d = d[3:]
-    d = datetime.strptime(d, "%A, %B %d, %Y")
-    return d
+    if d in ["", "Present"]:
+        return None
+    return datetime.strptime(d, "%A, %B %d, %Y").isoformat()
 
+def _fmt_subject(s):
+    return s.strip()
+
+def _fmt_participants(p):
+    print(p)
+    return p
 
 def _first(items):
     return items[0] if len(items) > 0 else ""
