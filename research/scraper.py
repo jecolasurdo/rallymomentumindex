@@ -4,6 +4,7 @@ import os.path
 import time
 import urllib
 from datetime import datetime
+import asyncio
 
 from lxml import html
 from selenium import webdriver
@@ -210,43 +211,42 @@ def hydrate_codex(clean_file="research/data/cleaned.json", url_timeout=10, max_c
                                                                pct,
                                                                hsh,
                                                                url))
-
-            if "twitter" in url:
-                prush("  Skipping twitter.")
-                continue
-
-            hsh_file = os.path.join(
-                os.getcwd(), "research/data/codex", hsh + ".txt")
-            if os.path.exists(hsh_file):
-                prush("  URL already processed. Skipping.")
-                continue
-
-            try:
-                with utils.time_limit(url_timeout):
-                    response = urllib.request.urlopen(url)
-            except urllib.error.HTTPError as e:
-                prush("  {}".format(e))
-                continue
-            except TimeoutError:
-                prush("  Timeout. Skipping.")
-                continue
-            except Exception as e:
-                consecutive_unhandled = consecutive_unhandled + 1
-                if consecutive_unhandled > max_consecutive_exceptions:
-                    prush("Consecutive exception limit exceeded. Halting.")
-                    raise e
-                prush(e)
-                prush("Unanticipated exception encountered. Trying to continue with next URL.")
-                continue
-
-            consecutive_unhandled = 0
-            prush("  Cleaning...")
-            document = doc.Doc(response.read()).clean
-            if "JavaScript" in document:
-                prush("  Possible JS issue.")
-
-            prush("  Writing to disk...")
-            with open(os.path.join(os.getcwd(), "research/data/codex", hsh_file), 'w') as f:
-                f.write(document)
+        consecutive_unhandled = consecutive_unhandled + 1
+        if consecutive_unhandled > max_consecutive_exceptions:
+            prush("Consecutive exception limit exceeded. Halting.")
+            raise e
 
     prush("Done.")
+
+    
+async def _process_url(hsh, url, url_timeout):
+    def ret(successful, msg):
+        return {
+            "hsh":hsh,
+            "url":url,
+            "successfull":successful,
+            "msg":msg
+        }
+
+    if "twitter" in url:
+        return ret(True, "Skipping twitter.")
+
+    hsh_file = os.path.join(
+        os.getcwd(), "research/data/codex", hsh + ".txt")
+    if os.path.exists(hsh_file):
+        return ret(True, "URL already processed. Skipping.")
+
+    try:
+        with utils.time_limit(url_timeout):
+            response = urllib.request.urlopen(url)
+    except urllib.error.HTTPError as e:
+        return ret(True, e)
+    except TimeoutError:
+        return ret(True, "Timeout. Skipping.")
+    except Exception as e:
+        return ret(False, e)
+
+    document = doc.Doc(response.read()).clean
+    with open(os.path.join(os.getcwd(), "research/data/codex", hsh_file), 'w') as f:
+        f.write(document)
+    return ret(True, "Success")
