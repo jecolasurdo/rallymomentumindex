@@ -4,13 +4,13 @@ import os.path
 import time
 import urllib
 from datetime import datetime
-import sys
 
 from lxml import html
 from selenium import webdriver
 from textpipe import doc
 
 from research import fmt, utils
+from research.utils import prush
 
 BASE_URL = "https://elephrame.com/textbook/BLM/chart"
 PAGE_XPATH = "//div[@id='blm-results']/div/ul/li[3]/input"
@@ -92,7 +92,7 @@ def scrape(raw_directory="research/data/raw_html", num_pages=165):
 
             filename = "{}/{}/page_{}.html".format(cwd,
                                                    raw_directory, page_num)
-            print("writing", filename)
+            prush("writing", filename)
             with open(filename, "w") as f:
                 f.write(html_source)
 
@@ -103,15 +103,15 @@ def scrape(raw_directory="research/data/raw_html", num_pages=165):
             if consecutive_successes >= SUCCESS_DOWNGRADE_INTERVAL and wait - WAIT_DECREMENT_INTEVAL >= MINIMUM_LOAD_WAIT_SECS:
                 consecutive_successes = 0
                 wait = wait - WAIT_DECREMENT_INTEVAL
-                print("Decrementing wait to", wait)
+                prush("Decrementing wait to", wait)
         except Exception as e:
-            print(page_num, e)
+            prush(page_num, e)
             consecutive_failures = consecutive_failures + 1
             consecutive_successes = 0
             if consecutive_failures >= MAX_FAILURES:
                 raise Exception("Reached max number of consecutive failures.")
             wait = wait + WAIT_INCREMENT_INTEVAL
-            print("Incrementing wait to", wait)
+            prush("Incrementing wait to", wait)
     driver.quit()
 
 
@@ -127,10 +127,10 @@ def extract(raw_directory="research/data/raw_html"):
 
     results = []
     raw_dir = os.path.join(os.getcwd(), raw_directory)
-    print("Getting list of raw html files...")
+    prush("Getting list of raw html files...")
     file_names = [f for f in os.listdir(raw_dir) if os.path.isfile(
         os.path.join(raw_dir, f)) and f.endswith(".html")]
-    print("Extracting data from raw html...")
+    prush("Extracting data from raw html...")
     for file_name in file_names:
         f = open(os.path.join(raw_dir, file_name), "r")
         tree = html.fromstring(f.read())
@@ -155,10 +155,10 @@ def extract(raw_directory="research/data/raw_html"):
                 "urls": item_div.xpath(
                     'div/ul/li[@class="item-protest-url"]/p/a/text()'),
             })
-    print("Writing to {}...".format(EXTRACT_FILE_NAME))
+    prush("Writing to {}...".format(EXTRACT_FILE_NAME))
     with open(os.path.join(raw_dir, EXTRACT_FILE_NAME), "w") as f:
         f.write(json.dumps(results, indent=2))
-    print("Done.")
+    prush("Done.")
 
 
 def clean(extracted_file="research/data/extracted.json"):
@@ -183,15 +183,27 @@ def clean(extracted_file="research/data/extracted.json"):
         f.write(json.dumps(cleaned, indent=2))
 
 
-def hydrate_codex(clean_file="research/data/cleaned.json"):
-    print("Loading cleaned data...")
+def hydrate_codex(clean_file="research/data/cleaned.json", url_timeout=5):
+    prush("Loading cleaned data...")
     with open(os.path.join(os.getcwd(), clean_file), 'r') as f:
         reports = json.load(f)
 
+    prush("Counting distinct URLs to process...")
+    urldict = dict()
     for report in reports:
         for u in report["urls"]:
+            urldict[u["hash"]] = True
+    url_count = len(urldict.keys())
+    prush("Distinct URL Count:", url_count)
+    urldict = None
+
+    processed_urls = 0
+    for report in reports:
+        for u in report["urls"]:
+            processed_urls = processed_urls + 1
             url, hsh = u["url"], u["hash"]
-            prush("{} - Processing {}: {}".format(datetime.now(), hsh, url))
+            prush("{} - {}/{} - Processing {}: {}".format(datetime.now(),processed_urls, url_count, hsh, url))
+
             if "twitter" in url:
                 prush("  Skipping twitter.")
                 continue
@@ -202,7 +214,8 @@ def hydrate_codex(clean_file="research/data/cleaned.json"):
                 continue
 
             try:
-                response = urllib.request.urlopen(url)
+                with utils.time_limit(url_timeout):
+                    response = urllib.request.urlopen(url)
             except urllib.error.HTTPError as e:
                 prush("  {}".format(e))
                 continue
@@ -222,8 +235,5 @@ def hydrate_codex(clean_file="research/data/cleaned.json"):
             with open(os.path.join(os.getcwd(), "research/data/codex", hsh_file), 'w') as f:
                 f.write(document)
     
-    print("Done.")
+    prush("Done.")
 
-def prush(*args):
-    print(*args)
-    sys.stdout.flush()

@@ -1,0 +1,501 @@
+Loading cleaned data...
+2020-06-17 18:39:48.397653 - Processing 99d0e4183c38d6c522119110a0aa9085: https://twitter.com/IssaKhari/status/887101623654273024
+  Skipping twitter.
+2020-06-17 18:39:48.397713 - Processing 4df14210dff1d0035140ee80132c175d: https://twitter.com/i/moments/884591731680956416
+  Skipping twitter.
+2020-06-17 18:39:48.397730 - Processing 7b024185cf47ff77edd19cdd02588111: http://www.dailypress.com/news/hampton/dp-nws-hampton-police-issue-summons-to-black-lives-matter-organizer-20170711-story.html
+  URL already processed. Skipping.
+2020-06-17 18:39:48.397919 - Processing fdd0181c0ff795895d226837fbee248c: http://www.dailypress.com/news/newport-news/dp-nws-black-lives-matter-marches-planned-for-monday-night-20170710-story.html
+  URL already processed. Skipping.
+2020-06-17 18:39:48.398014 - Processing 14dcfe5a7695f8e5f7f7097e057e4213: https://pilotonline.com/news/local/black-lives-matter-protests-end-peacefully-in-norfolk-portsmouth/article_5034ede0-a6ad-5d74-a4f8-f42d44d7bcfa.html
+  HTTP Error 404: Not Found
+2020-06-17 18:39:51.941967 - Processing ac7688fd367675133babb32e6cdf3488: http://wavy.com/2017/07/10/hampton-roads-marches-july-10-2017/
+  HTTP Error 404: Not Found
+2020-06-17 18:39:54.049215 - Processing 7098a9e3df207368f463a425ea711b65: https://www.cincinnati.com/story/news/2017/07/09/blm-march-dubose/462428001/
+  URL already processed. Skipping.
+2020-06-17 18:39:54.049692 - Processing 1b66728d57b5b47955ddd3b217ac9684: https://www.theguardian.com/us-news/2017/jul/09/charlottesville-kkk-rally-confederate-statue-racism500
+  HTTP Error 404: Not Found
+2020-06-17 18:39:55.011664 - Processing 478271d1da686f71e8090705c6eadcbf: http://journaltimes.com/news/national/protests-over-confederate-statue-shake-charlottesville-virginia/article_98b05794-b22f-5c10-be69-3a3ac6140d1f.html
+  URL already processed. Skipping.
+2020-06-17 18:39:55.012069 - Processing 043bdeefe5a8604bef6fa66ed082b02d: https://twitter.com/AshAgony/status/882023686404022272
+  Skipping twitter.
+2020-06-17 18:39:55.012117 - Processing 276f41d9b438aac9432e3b749d138c93: http://www.cbc.ca/news/canada/montreal/blm-vigil-pierre-coriolan-1.4188192
+  URL already processed. Skipping.
+2020-06-17 18:39:55.012289 - Processing 44b536d4e8c9d717accd8515ef858bff: https://twitter.com/i/moments/879669512391602176
+  Skipping twitter.
+2020-06-17 18:39:55.012323 - Processing 65008c8d5e893c057f9dae648552371c: http://minnesota.cbslocal.com/2017/06/25/pride-parade-protesters-police/
+  URL already processed. Skipping.
+2020-06-17 18:39:55.012465 - Processing cb0c53a7bd8f25d44b909792a2015105: https://www.facebook.com/events/832802270207060/permalink/854833704670583/
+  URL already processed. Skipping.
+2020-06-17 18:39:55.012603 - Processing 6047705a029ba2fd0656f296f2e13f84: http://www.blacklivesmatterberlin.de/press-statement-black-lives-matter-protest-24th-of-june-at-4-30pm/
+  HTTP Error 404: Not Found
+2020-06-17 18:39:58.056398 - Processing cb0c53a7bd8f25d44b909792a2015105: https://www.facebook.com/events/832802270207060/permalink/854833704670583/
+  URL already processed. Skipping.
+2020-06-17 18:39:58.056665 - Processing 6047705a029ba2fd0656f296f2e13f84: http://www.blacklivesmatterberlin.de/press-statement-black-lives-matter-protest-24th-of-june-at-4-30pm/
+  HTTP Error 404: Not Found
+2020-06-17 18:39:59.723388 - Processing cb0c53a7bd8f25d44b909792a2015105: https://www.facebook.com/events/832802270207060/permalink/854833704670583/
+  URL already processed. Skipping.
+2020-06-17 18:39:59.723854 - Processing 6047705a029ba2fd0656f296f2e13f84: http://www.blacklivesmatterberlin.de/press-statement-black-lives-matter-protest-24th-of-june-at-4-30pm/
+  HTTP Error 404: Not Found
+2020-06-17 18:40:01.772901 - Processing 874cdf47c463f4d94a676c4c57dbba9e: https://www.usnews.com/news/best-states/ohio/articles/2017-06-23/the-latest-day-5-of-jury-deliberations-in-ex-cop-trial
+  HTTP Error 403: Forbidden
+2020-06-17 18:40:02.182191 - Processing a3c9e40b1441c6e131937eb3a5e66fdf: http://www.nbcmiami.com/news/local/Protesters-Want-Hollywood-to-Change-Street-Names-Honoring-Confederate-Generals-429849493.html
+  URL already processed. Skipping.
+2020-06-17 18:40:02.182476 - Processing c0693149afd60ca2ee1b845f8b735f2a: http://www.nbcmiami.com/news/local/Protesters-Upset-After-Hollywood-Officer-Seen-Taking-Picture-With-Pro-Confederate-Street-Name-Group-430177113.html
+  URL already processed. Skipping.
+2020-06-17 18:40:02.182638 - Processing f04cd3b1a8c3a39e0c9367de535695be: https://twitter.com/i/moments/876988418626125824
+  Skipping twitter.
+2020-06-17 18:40:02.182673 - Processing 304e1bb851b444763a3733cddb91a8ed: http://www.startribune.com/third-day-of-protests-against-yanez-verdict-draws-anger-and-tears-but-no-violence/429282653/
+  HTTP Error 403: Forbidden
+2020-06-17 18:40:02.788778 - Processing 02c794c6a6815a837cc172299a6cc18c: http://minnesota.cbslocal.com/2017/06/18/fathers-day-protest-philando-castile/
+  URL already processed. Skipping.
+2020-06-17 18:40:02.789283 - Processing 99bd1779c28c385a1fcfdef036a9de3b: http://www.dispatch.com/news/20170617/four-protesters-arrested-at-pride-parade
+  URL already processed. Skipping.
+2020-06-17 18:40:02.789563 - Processing 497b58123504ea475e541c3add74d56c: https://www.lgbtqnation.com/2017/06/4-protestors-arrested-columbus-pride-parade/
+  HTTP Error 403: Forbidden
+2020-06-17 18:40:03.071715 - Processing 876797a1035dcda88ec7fd81bc8984f8: http://www.espn.com/blog/nflnation/post/_/id/218782/nfl-players-who-protested-during-the-national-anthem-in-week-7
+  URL already processed. Skipping.
+2020-06-17 18:40:03.071921 - Processing 5ee1f2532fab78b4a539aa58621da895: http://www.fbschedules.com/nfl-16/2016-philadelphia-eagles-football-schedule.php
+  HTTP Error 403: Forbidden
+2020-06-17 18:40:03.403487 - Processing 876797a1035dcda88ec7fd81bc8984f8: http://www.espn.com/blog/nflnation/post/_/id/218782/nfl-players-who-protested-during-the-national-anthem-in-week-7
+  URL already processed. Skipping.
+2020-06-17 18:40:03.403861 - Processing fadb4492e421466536264892fd1b9d02: http://www.fbschedules.com/nfl-16/2016-tennessee-titans-football-schedule.php
+  HTTP Error 403: Forbidden
+2020-06-17 18:40:04.018906 - Processing 876797a1035dcda88ec7fd81bc8984f8: http://www.espn.com/blog/nflnation/post/_/id/218782/nfl-players-who-protested-during-the-national-anthem-in-week-7
+  URL already processed. Skipping.
+2020-06-17 18:40:04.019205 - Processing f76505f808ad02538169697d08407496: http://www.fbschedules.com/nfl-16/2016-miami-dolphins-football-schedule.php
+  HTTP Error 403: Forbidden
+2020-06-17 18:40:04.089939 - Processing d87fae7b135de2e583ff5bd4ef3ec3bc: http://tdn.com/sports/football/the-latest-giants-harris-injures-lower-back-on-punt-return/article_fa8f8f2f-9088-5381-8a3a-293711326770.html
+  HTTP Error 404: Not Found
+2020-06-17 18:40:06.484018 - Processing 41a2df90c3d562dacd46f9edc057bb7d: https://www.columbiamissourian.com/news/local/mu-homecoming-parade-draws-demonstrators-but-no-interruptions/article_313137f8-9874-11e6-9b6a-3b7d58cb9d67.html
+  URL already processed. Skipping.
+2020-06-17 18:40:06.484299 - Processing 710fbea0179140a3e6cc0bd24552b37a: http://papyrus.greenville.edu/2016/10/homecoming-win-overshadowed-by-protest/
+  URL already processed. Skipping.
+2020-06-17 18:40:06.484489 - Processing 4ef54a3fc80e3639b6003d86b1747aaa: http://athletics.greenville.edu/sports/fball/2016-17/boxscores/20161022_izdf.xml
+  URL already processed. Skipping.
+2020-06-17 18:40:06.484641 - Processing 752a2fd25edfbe6dcd82aa91ad809a0a: http://www.sandiegouniontribune.com/news/public-safety/sd-me-protest-day-20161021-story.html
+  URL already processed. Skipping.
+2020-06-17 18:40:06.484768 - Processing a78f4387ff71fef0703c7256d24f25e8: http://www.chicagotribune.com/news/local/breaking/ct-police-brutality-protests-20161022-story.html
+  URL already processed. Skipping.
+2020-06-17 18:40:06.484881 - Processing 2bf7282703e5eda28f03b287eec863d7: http://www.startribune.com/edina-city-hall-is-site-of-rally-march-against-police-brutality/398042281/
+  HTTP Error 403: Forbidden
+2020-06-17 18:40:07.074201 - Processing 612d13f0d04642cc98dba9c90f2988e4: http://spokesman-recorder.com/2016/10/23/marchers-take-streets-edina-demanding-police-accountability/
+  URL already processed. Skipping.
+2020-06-17 18:40:07.074454 - Processing e94c658e0d6d5ccf054fc72f90b25e7a: https://www.ydr.com/story/news/2016/12/12/northeastern-teen-stands-decision-kneel/95346810/
+  URL already processed. Skipping.
+2020-06-17 18:40:07.074689 - Processing 4cf191e8c37354b84e78b4e2a59dc337: http://www.maxpreps.com/high-schools/northeastern-bobcats-(manchester,pa)/football-fall-16/schedule.htm
+  URL already processed. Skipping.
+2020-06-17 18:40:07.074849 - Processing ae479e3d8d7decd5bcfcf66c6b855566: http://www.jdnews.com/news/20161022/football-official-kneels-during-national-anthem-at-southwest-game
+  URL already processed. Skipping.
+2020-06-17 18:40:07.074960 - Processing 382bb6a40de1d7cca179c0c0dc1236ca: https://thinkprogress.org/national-anthem-sports-protest-tracker-kaepernick-284ff1d1ab3e#.n7agfskyx
+  HTTP Error 403: Forbidden
+2020-06-17 18:40:08.531518 - Processing 9aedeb6e30c9855d27b5d3fa4c14ae42: http://www.maxpreps.com/high-schools/croatan-cougars-(newport,nc)/football/schedule.htm
+  URL already processed. Skipping.
+2020-06-17 18:40:08.532577 - Processing a2027454389ee13c73221ec386007e46: http://www.fox4news.com/news/213014095-story
+  HTTP Error 410: Gone
+2020-06-17 18:40:09.554990 - Processing 382bb6a40de1d7cca179c0c0dc1236ca: https://thinkprogress.org/national-anthem-sports-protest-tracker-kaepernick-284ff1d1ab3e#.n7agfskyx
+  HTTP Error 403: Forbidden
+2020-06-17 18:40:10.372382 - Processing 01b21a8158efd80b40b9b3988cf17310: http://www.villanovan.com/news/view.php/1025158/University-responds-to-student-protest
+  URL already processed. Skipping.
+2020-06-17 18:40:10.372604 - Processing 5854b2b8e13919f1399ee5aade9d13f3: http://www.masslive.com/news/index.ssf/2016/10/demonstrators_protest_police_b.html
+  URL already processed. Skipping.
+2020-06-17 18:40:10.372746 - Processing 34bb35f377c8e2d650c58b5f33d2200a: http://www.dailynebraskan.com/news/unl-student-groups-hold-black-lives-matter-rally-on-campus/article_4dc03eb2-9984-11e6-a728-2bc2773765a5.html
+  URL already processed. Skipping.
+2020-06-17 18:40:10.372871 - Processing cd60f47ed30c27f7b1f66da649b66ae3: http://www.huffingtonpost.com/entry/singer-protests-by-kneeling-during-national-anthem-at-nba-game_us_580bb9d5e4b000d0b1571800
+  HTTP Error 403: Forbidden
+2020-06-17 18:40:10.981966 - Processing 495d4c03e32688727d4c9bc13d35ddcb: http://www.chicagotribune.com/news/laquanmcdonald/ct-laquan-mcdonald-death-anniversary-protest-20161020-story.html
+  URL already processed. Skipping.
+2020-06-17 18:40:10.982385 - Processing 4cee9a4b14d36b7aaad4c05f565f60e6: http://patch.com/illinois/chicago/laquan-mcdonald-shooting-how-did-chicago-mark-tragedy-2-years-later
+  URL already processed. Skipping.
+2020-06-17 18:40:10.982584 - Processing df17afda0fe9ed552a7bc4bc28214e7b: http://www.ilga.gov/legislation/billstatus.asp?DocNum=6616&GAID=13&GA=99&DocTypeID=HB&LegID=98510&SessionID=88
+  URL already processed. Skipping.
+2020-06-17 18:40:10.982738 - Processing 495d4c03e32688727d4c9bc13d35ddcb: http://www.chicagotribune.com/news/laquanmcdonald/ct-laquan-mcdonald-death-anniversary-protest-20161020-story.html
+  URL already processed. Skipping.
+2020-06-17 18:40:10.983001 - Processing b5b36989a0bdefbbdca07b9c36cd2d1d: http://chicagoist.com/2016/10/20/hundreds_to_rally_to_commemorate_la.php
+  URL already processed. Skipping.
+2020-06-17 18:40:10.983219 - Processing b11c8027d5aeb433fafa175f918d3015: http://www.courierpostonline.com/story/news/2016/10/20/black-lives-matter-emerges-camden/92365296/
+  URL already processed. Skipping.
+2020-06-17 18:40:10.983506 - Processing 1161394ca0f26fcc4884904714dca2e1: http://abc7news.com/news/33-arrested-at-sf-city-hall-following-sfpd-protest-/1328471/
+  URL already processed. Skipping.
+2020-06-17 18:40:10.983864 - Processing 6bfce7677afecb9759a16e31ce073f9d: http://www.sfexaminer.com/least-one-detained-protesters-deputies-clash-city-hall/
+  HTTP Error 403: Forbidden
+2020-06-17 18:40:11.186626 - Processing be42b999009fc4439fb38d82a5c6ebe5: http://www.sfexaminer.com/four-journalists-allegedly-injured-sheriffs-hunger-strike-protest/
+  HTTP Error 403: Forbidden
+2020-06-17 18:40:11.596307 - Processing f9282c07e29fe71746794349afa9fdea: http://yaledailynews.com/blog/2016/05/06/yale-students-join-black-lives-matter-protest/
+  HTTP Error 403: Forbidden
+2020-06-17 18:40:12.107753 - Processing bbaf7fd830cc78fd71d09175a5e6fd6c: http://www.seattletimes.com/seattle-news/just-before-mothers-day-protesting-moms-in-seattle-decry-fatal-shootings-by-police/
+  URL already processed. Skipping.
+2020-06-17 18:40:12.108182 - Processing 4c5cb4c09be81082e5bb5c08a8eeb40c: http://www.wpsdlocal6.com/story/31866187/students-protest-at-siu-carbondale
+  HTTP Error 404: Not Found
+2020-06-17 18:40:14.053472 - Processing a717c1ae99e277d58d54e9e8b4b9e9f4: https://twitter.com/randyfurst/status/723573313948119040
+  Skipping twitter.
+2020-06-17 18:40:14.053537 - Processing ba8b5f8d3ae6042a73214d5ef42113b5: https://www.facebook.com/events/537242656483032/
+  URL already processed. Skipping.
+2020-06-17 18:40:14.053788 - Processing 84282e89f75a8e0c0f033aa848473727: https://www.facebook.com/events/1750249938554741/permalink/1751554371757631/
+  URL already processed. Skipping.
+2020-06-17 18:40:14.053940 - Processing 538e6859a9519bf7d340a57b01ca8494: https://twitter.com/TMJ4Tom/status/721108638274691072
+  Skipping twitter.
+2020-06-17 18:40:14.053973 - Processing a43cc85dff94e8944a30a212d453fc71: https://www.facebook.com/events/1750249938554741/
+  URL already processed. Skipping.
+2020-06-17 18:40:14.054092 - Processing 4ba8c6d1a7a6e24adc86de8d33230bca: https://www.facebook.com/events/1727243730851423/permalink/1728211040754692/
+  URL already processed. Skipping.
+2020-06-17 18:40:14.054232 - Processing 75a7ce985aed7a0bc310d14b206150aa: https://www.facebook.com/events/1727243730851423/
+  URL already processed. Skipping.
+2020-06-17 18:40:14.054353 - Processing 30da8dcf32435542113d67f9247bac87: http://www.azcentral.com/story/news/local/phoenix/2016/04/14/black-lives-matter-capitol-protest/83047952/
+  URL already processed. Skipping.
+2020-06-17 18:40:14.054464 - Processing c4d4cedbfb2988c5795ab2c717547a37: http://www.cdispatch.com/news/article.asp?aid=49512
+  HTTP Error 403: Forbidden
+2020-06-17 18:40:14.667488 - Processing d1b5c3b6c8548ac93e2154c045373487: http://www.campusreform.org/?ID=7487
+  URL already processed. Skipping.
+2020-06-17 18:40:14.667872 - Processing 2ee6c2ec4e9036d15cfd85e94441075b: http://www.salon.com/2016/04/13/shes_killing_us_blood_on_her_hands_black_lives_matter_protester_interrupts_chelsea_clinton_event_in_pittsburgh/
+  HTTP Error 403: Forbidden
+2020-06-17 18:40:15.489553 - Processing 8f6c6702e3bf273a04539f2db02c18ed: https://www.washingtonpost.com/video/national/dozens-arrested-at-capitol-hill-on-third-day-protests/2016/04/14/4d99ff66-0228-11e6-8bb1-f124a43f84dc_video.html
+  URL already processed. Skipping.
+2020-06-17 18:40:15.489982 - Processing b971d4c7fceec1ded2a1e490efc28f1f: https://twitter.com/calebmaupin/status/720295414755364864/photo/1
+  Skipping twitter.
+2020-06-17 18:40:15.490055 - Processing a99d3cf0d308b851cd597e46cefcc806: http://torontoist.com/2016/04/scene-idle-no-more-toronto-stages-protest-in-response-to-attawapiskat-state-of-emergency/
+  HTTP Error 403: Forbidden
+2020-06-17 18:40:16.055847 - Processing 710b64690ae77eb527e7d048db10a5d3: http://www.cp24.com/news/idle-no-more-protesters-stage-sit-in-in-toronto-for-attawapiskat-1.2857705
+  URL already processed. Skipping.
+2020-06-17 18:40:16.056552 - Processing 29de66cf0adc56d4bf2f02fa1d84c6f8: https://www.buzzfeed.com/emmaloop/young-people-in-attawapiskat-are-taking-action?utm_term=.uy2lr8Gz5#.mjD1AGvKw
+  URL already processed. Skipping.
+2020-06-17 18:40:16.057157 - Processing 8ec2dc0fd617c106687f6433cfe0fad2: http://www.fox32chicago.com/news/local/121528082-story
+  HTTP Error 410: Gone
+2020-06-17 18:40:17.064955 - Processing e6e8ef07451189dead9585b20ff92349: http://www.startribune.com/black-lives-matter-minneapolis-stages-protest-at-twins-game/375306531/#1
+  HTTP Error 403: Forbidden
+2020-06-17 18:40:17.117277 - Processing 0698979a0d3168da951b1f61c897f3e5: http://www.fox9.com/news/121044731-story
+  HTTP Error 404: Not Found
+2020-06-17 18:40:18.976261 - Processing 18acf7ea489d33884fc408fb6a88f8d2: https://www.facebook.com/events/999695486781463/permalink/1001076499976695/
+  URL already processed. Skipping.
+2020-06-17 18:40:18.976545 - Processing d9d3428261a5f247fa5b1bb92197c473: https://www.facebook.com/events/999695486781463/
+  URL already processed. Skipping.
+2020-06-17 18:40:18.976688 - Processing ee8db36429818c2500dd2d3d0119489d: https://www.npr.org/2016/04/07/473428472/bill-clinton-gets-into-heated-exchange-with-black-lives-matter-protester
+  URL already processed. Skipping.
+2020-06-17 18:40:18.976815 - Processing e561caf0c39920330251ad42e26fdc6b: http://nymag.com/daily/intelligencer/2016/04/bill-clinton-clashes-with-blm-protesters.html
+  URL already processed. Skipping.
+2020-06-17 18:40:18.976930 - Processing 70d16b9db0212488551c94d7862e00ec: https://socialistworker.org/2016/04/14/black-lives-matter-in-canada
+  HTTP Error 403: Forbidden
+2020-06-17 18:40:19.383943 - Processing 98772fae8735dac6183068f4977e56ad: http://www.seattletimes.com/seattle-news/education/at-least-200-protesters-take-over-uw-meeting-on-race-relations/
+  URL already processed. Skipping.
+2020-06-17 18:40:19.384197 - Processing de3b1f41769a1dba526f9b1833402892: https://twitter.com/ItsKelseyHamlin/status/717513278562275328
+  Skipping twitter.
+2020-06-17 18:40:19.384225 - Processing b62cd4852a297fed50db6f2918bdb91e: https://www.cbc.ca/news/canada/toronto/black-lives-matter-toronto-police-headquarters-1.3501347
+  URL already processed. Skipping.
+2020-06-17 18:40:19.384426 - Processing 6dddb6538c5fb42ec7259c8eae27ec15: https://www.cbc.ca/news/canada/toronto/black-lives-matter-protest-1.3502306
+  URL already processed. Skipping.
+2020-06-17 18:40:19.384570 - Processing 8a2407807d59a0a91cc38cc708b31794: https://www.cbc.ca/news/canada/toronto/black-lives-matter-toronto-loku-1.3508462
+  URL already processed. Skipping.
+2020-06-17 18:40:19.384687 - Processing 3ec91081840f53fbe6c89df06df872d9: https://www.thestar.com/news/gta/2016/04/04/kathleen-wynne-meets-with-black-lives-matter-protesters.html
+  URL already processed. Skipping.
+2020-06-17 18:40:19.384823 - Processing 6d905f7127ad9a25ec53890cf7a5e300: http://www.startribune.com/protestors-for-jamar-clark-gathered-for-afternoon-rally-then-hit-the-skyways/374316501/
+  HTTP Error 403: Forbidden
+2020-06-17 18:40:19.787681 - Processing 1440a72b1cbe168add83281f306ff42e: http://www.fox5atlanta.com/news/group-protests-in-mall-after-child-s-arrest-goes-viral
+  URL already processed. Skipping.
+2020-06-17 18:40:19.787924 - Processing ee6bf1a8dba76dac73839c0605177a57: https://twitter.com/AshAgony/status/1052019752967778304
+  Skipping twitter.
+2020-06-17 18:40:19.787962 - Processing 2b6bb56c266ef49c6e1a8643417d5fa1: https://twitter.com/AshAgony/status/1052013728508649472
+  Skipping twitter.
+2020-06-17 18:40:19.787993 - Processing 95f835c13d810f3c1f59ea1ddb860533: https://twitter.com/AshAgony/status/1052010869985595393
+  Skipping twitter.
+2020-06-17 18:40:19.788023 - Processing 493f89116e3b69536f1271dc30564ad9: https://twitter.com/AshAgony/status/1052008821957246976
+  Skipping twitter.
+2020-06-17 18:40:19.788054 - Processing 7ed3ad794ca490fca991de9bc29572d0: https://twitter.com/AshAgony/status/1052005075479158784
+  Skipping twitter.
+2020-06-17 18:40:19.788082 - Processing 9199c28ca376c2ba0cd63e20a741b1c4: https://twitter.com/IfNotMeow/status/1052171240969031686
+  Skipping twitter.
+2020-06-17 18:40:19.788110 - Processing 79e4652e167d33297515140518047b7a: https://www.facebook.com/events/318755152238258/
+  URL already processed. Skipping.
+2020-06-17 18:40:19.788254 - Processing 34f59fb06db81cce22b1c9b729e82fe2: https://www.orlandosentinel.com/news/breaking-news/os-ne-black-out-hate-protest-20181005-story.html
+  URL already processed. Skipping.
+2020-06-17 18:40:19.788393 - Processing fe82ae6dab9040994d8910ca6c704184: https://www.si.com/nfl/2018/10/07/players-who-protested-racial-injustice-police-brutality-during-national-anthem-week-5
+  URL already processed. Skipping.
+2020-06-17 18:40:19.788594 - Processing fe82ae6dab9040994d8910ca6c704184: https://www.si.com/nfl/2018/10/07/players-who-protested-racial-injustice-police-brutality-during-national-anthem-week-5
+  URL already processed. Skipping.
+2020-06-17 18:40:19.788796 - Processing fe82ae6dab9040994d8910ca6c704184: https://www.si.com/nfl/2018/10/07/players-who-protested-racial-injustice-police-brutality-during-national-anthem-week-5
+  URL already processed. Skipping.
+2020-06-17 18:40:19.788953 - Processing 2d8b24df3775ff224cd851112bef173e: https://www.koin.com/news/local/multnomah-county/protest-against-police-shooting-blocks-traffic/1503503300
+  HTTP Error 404: Not Found
+2020-06-17 18:40:20.817044 - Processing 08a65d0d8c8a0d096d2f8171e441b72c: https://www.hometownlife.com/story/news/local/westland/2018/10/05/two-dozen-protesters-call-police-reforms-westland/1523991002/
+  URL already processed. Skipping.
+2020-06-17 18:40:20.817435 - Processing ac1c398802a775ce4336906117928f6f: https://www.si.com/nfl/2018/09/30/players-who-protested-racial-injustice-police-brutality-during-national-anthem-week-4
+  URL already processed. Skipping.
+2020-06-17 18:40:20.817775 - Processing ac1c398802a775ce4336906117928f6f: https://www.si.com/nfl/2018/09/30/players-who-protested-racial-injustice-police-brutality-during-national-anthem-week-4
+  URL already processed. Skipping.
+2020-06-17 18:40:20.818043 - Processing 742602130b1023ddc832188053b3fb67: https://www.localmemphis.com/news/local-news/family-of-man-shot-by-memphis-police-protest-outside-memphis-police-association/1477689664
+  HTTP Error 404: Not Found
+2020-06-17 18:40:21.638837 - Processing b3ceccbca6cc7ee2f7160aade8fdb8f0: https://www.si.com/nfl/2018/09/23/players-who-protested-racial-injustice-police-brutality-during-national-anthem-week-3
+  URL already processed. Skipping.
+2020-06-17 18:40:21.639138 - Processing 745adecfad2796c633ebaac893a801c5: https://www.detroitnews.com/story/news/local/wayne-county/2018/09/21/activists-protest-police-taser-incidents-westland/1370805002/
+  URL already processed. Skipping.
+2020-06-17 18:40:21.639291 - Processing 2a563df86f25846339bff6500841ece5: https://www.sacbee.com/latest-news/article218600090.html
+  Blacklisted URL hash. Skipping.
+2020-06-17 18:40:21.639326 - Processing 24a814379ba5b81dae8ba3ff4c2d7fda: https://twitter.com/AshAgony/status/1041854596409450498
+  Skipping twitter.
+2020-06-17 18:40:21.639352 - Processing 85c1bf6d65bbdc1927190c198d1b0f5b: https://twitter.com/AshAgony/status/1041851824591052800
+  Skipping twitter.
+2020-06-17 18:40:21.639376 - Processing 022fbb52c2c15df884b3879c5695e39e: https://twitter.com/AshAgony/status/1041841369726287872
+  Skipping twitter.
+2020-06-17 18:40:21.639404 - Processing f3002bf2edb9159208bcba54a617020e: https://twitter.com/IfNotMeow/status/1041852638709596160
+  Skipping twitter.
+2020-06-17 18:40:21.639429 - Processing 2b94e324ae323f856bf93c6079e177f5: https://twitter.com/NYC_ShutItDown/status/1041465558955372544
+  Skipping twitter.
+2020-06-17 18:40:21.639455 - Processing 439849f491db5129c4bf24cdcaa6d9d8: https://www.si.com/nfl/2018/09/16/players-who-protested-racial-injustice-police-brutality-during-national-anthem-week-2
+  URL already processed. Skipping.
+2020-06-17 18:40:21.639596 - Processing 46e1a0b12b75faa7bc9990a72e7d7c08: https://www.nbcdfw.com/news/local/Demonstrators-to-Protest-Shooting-Deaths-Outside-ATT-Stadium-493427041.html
+  URL already processed. Skipping.
+2020-06-17 18:40:21.640411 - Processing b51eb80b2e9ea44326b452337962a2a2: https://www.wfaa.com/article/news/special-reports/botham-jean/dozens-protest-over-botham-jean-shooting-briefly-shutting-down-i-30/287-594591173
+  URL already processed. Skipping.
+2020-06-17 18:40:21.640554 - Processing 2e87e328e051a3073c2807995899f81b: https://www.kcra.com/article/protest-leads-sacramento-mayor-to-end-city-council-meeting/23123526
+  URL already processed. Skipping.
+2020-06-17 18:40:21.640742 - Processing a339219591c7d693cb071bf9f4cea143: https://www.nbcdfw.com/news/local/Protestors-Condemn-Botham-Jean-Shooting-Disrupt-Dallas-City-Council-Meeting-493087191.html
+  URL already processed. Skipping.
+2020-06-17 18:40:21.640886 - Processing 1716e0b85b3e5e179c9a5af9c2710ad7: https://www.cnn.com/2018/09/13/us/dallas-police-shooting-protests/index.html
+  URL already processed. Skipping.
+2020-06-17 18:40:21.641042 - Processing ad284ae7ada63abadd5ce8cb9b20ad4d: https://www.dallasnews.com/news/dallas/2018/09/12/botham-jean-protests-bring-dallas-city-council-meeting-abrupt-halt
+  URL already processed. Skipping.
+2020-06-17 18:40:21.641177 - Processing df8ed196784aa9903615521503e1f440: https://www.deseret.com/utah/2020/5/30/21275674/salt-lake-city-curfew-protest-streets-george-floyd-killing-police-car-gary-herbert-national-guard
+  URL already processed. Skipping.
+2020-06-17 18:40:21.641362 - Processing 9844bc8e63b376565ac1565c586def48: https://www.kuer.org/post/salt-lake-issues-citywide-curfew-until-monday-morning-after-protests-turn-violent
+  URL already processed. Skipping.
+2020-06-17 18:40:21.641499 - Processing 22e7a5ae63fbb87afb527adc1595f2b9: https://www.tennessean.com/story/news/2020/05/30/george-floyd-death-nashville-tennessee-protest-may-john-cooper/5286837002/
+  URL already processed. Skipping.
+2020-06-17 18:40:21.641600 - Processing 79ca31fe9988bac5e02b73cc6466ba15: https://www.newschannel5.com/news/live-i-will-breathe-rally-to-protest-police-brutality-and-racism-held-in-nashville
+  URL already processed. Skipping.
+2020-06-17 18:40:21.641971 - Processing eda3732b27ebe269769eec5acb8ff827: https://www.seattletimes.com/seattle-news/protest-updates-as-the-country-reacts-to-the-death-of-george-floyd-follow-the-latest-developments-in-seattle-and-elsewhere/
+  URL already processed. Skipping.
+2020-06-17 18:40:21.642991 - Processing eda3732b27ebe269769eec5acb8ff827: https://www.seattletimes.com/seattle-news/protest-updates-as-the-country-reacts-to-the-death-of-george-floyd-follow-the-latest-developments-in-seattle-and-elsewhere/
+  URL already processed. Skipping.
+2020-06-17 18:40:21.643111 - Processing 13f668c5ef5fd6bb1293ba519ce85612: https://mynorthwest.com/1900080/peaceful-protests-planned-in-seattle-for-george-floyd/
+  HTTP Error 403: Forbidden
+2020-06-17 18:40:22.120440 - Processing 91f2e62edf2ef60d3f2e7e6bc74e1f01: https://www.inforum.com/incoming/6514050-LIVE-Protesters-are-not-peaceful-anymore-police-say
+  URL already processed. Skipping.
+2020-06-17 18:40:22.120673 - Processing edb332826952405fad7b7794cf443f4f: https://www.kxnet.com/news/top-stories/live-fargo-police-order-protesters-to-disperse-from-downtown/
+  URL already processed. Skipping.
+2020-06-17 18:40:22.120857 - Processing a079f4f5430fe7145a653261d423cf79: https://www.pennlive.com/news/2020/05/in-harrisburg-and-around-pa-peaceful-george-floyd-protests-unfurl-into-violent-clashes-with-police.html
+  URL already processed. Skipping.
+2020-06-17 18:40:22.120986 - Processing 7334c64c30afafc93c17f38257de5b36: https://www.pennlive.com/daily-buzz/2020/05/black-lives-matter-organizer-says-protesters-have-been-hit-as-event-turns-ugly-at-pa-state-capitol.html
+  URL already processed. Skipping.
+2020-06-17 18:40:22.121099 - Processing 4d29a853bab6ff8ce89525dd18abd273: https://www.pennlive.com/daily-buzz/2020/05/black-lives-matter-rally-planned-for-saturday-at-pa-state-capitol-complex.html
+  URL already processed. Skipping.
+2020-06-17 18:40:22.121210 - Processing f9336baa140fdd13d4d2fbaa6036f879: https://www.post-gazette.com/news/crime-courts/2020/05/30/Protest-Downtown-Pittsburgh-george-floyd-police/stories/202005300054
+  URL already processed. Skipping.
+2020-06-17 18:40:22.121318 - Processing 677a6167847338d8291f9d697f9941ab: https://www.dailyitem.com/region/fires-set-stores-damaged-as-peaceful-protests-turn-violent-in-pa/article_4ed3d20f-77a8-59f8-b1e9-9261ed8a04e5.html
+  URL already processed. Skipping.
+2020-06-17 18:40:22.121426 - Processing 4c7d172a1ae623c989fba2a104f9cb5d: https://twitter.com/peachdekuu/status/1266823239759794176
+  Skipping twitter.
+2020-06-17 18:40:22.121459 - Processing 60ee3139bb87744edf66dce684d15b42: https://www.mlive.com/news/grand-rapids/2020/05/no-justice-no-peace-thousands-gather-in-grand-rapids-to-protest-police-brutality.html
+  URL already processed. Skipping.
+2020-06-17 18:40:22.121562 - Processing 4bd06335e677447e7072b53bca1f7898: https://www.wzzm13.com/article/news/local/grand-rapids-central/grand-rapids-march-police-brutality/69-d4b971c1-47b6-4ab0-8d2a-d5eb6dd1f00e
+  URL already processed. Skipping.
+2020-06-17 18:40:22.121669 - Processing 82632abeb2fa32aade156965865b74ff: https://www.facebook.com/events/258427478606435
+  URL already processed. Skipping.
+2020-06-17 18:40:22.121894 - Processing ccd1229e6e7939ba76df3056c2015a32: https://www.mysanantonio.com/news/local/article/Live-coverage-Protesters-face-off-with-Alamo-15305532.php
+  URL already processed. Skipping.
+2020-06-17 18:40:22.122101 - Processing 8219d2c29052950f39c41f299ebd1a61: https://www.expressnews.com/news/local/article/live-travis-park-demonstration-george-floyd-15305539.php
+  URL already processed. Skipping.
+2020-06-17 18:40:22.122251 - Processing daee7ba21feaf02549eb9f3b93fa4408: https://www.dailybulletin.com/2020/05/30/about-300-protest-police-brutality-racism-in-mariachi-plaza/
+  URL already processed. Skipping.
+2020-06-17 18:40:22.122454 - Processing 4072ab8ff53d022cc6798ea70ece6062: https://www.dailybulletin.com/2020/05/30/about-250-protest-george-floyd-killing-in-pomona/
+  URL already processed. Skipping.
+2020-06-17 18:40:22.122556 - Processing fc7cbeefee2ec1b758ef9d6d4b5841db: https://www.dailybulletin.com/2020/05/30/hundreds-gather-for-2nd-day-of-protests-in-rancho-cucamonga-after-george-floyds-death/
+  URL already processed. Skipping.
+2020-06-17 18:40:22.122671 - Processing 08cb40c3277cc611fa1a21fa7ccf4476: https://twitter.com/jacobstarrr/status/1266864419687919616
+  Skipping twitter.
+2020-06-17 18:40:22.122705 - Processing 9011e630ba834b5bdb7ae8c08050366b: https://www.pe.com/2020/05/30/protest-over-george-floyd-killing-held-in-riverside/
+  URL already processed. Skipping.
+2020-06-17 18:40:22.122811 - Processing e760f85fe0018ae58da3fdbbd1ea2abc: https://www.pe.com/2020/05/30/hundreds-protest-george-floyd-killing-in-temecula/
+  URL already processed. Skipping.
+2020-06-17 18:40:22.122920 - Processing ec2a8d8188bffd06481bb530b5f4e9ca: https://twitter.com/nikkiebba/status/1266837681666809856
+  Skipping twitter.
+2020-06-17 18:40:22.122952 - Processing 2f033a786cfea85b8999146d627ad024: https://twitter.com/Brian_Rokos/status/1266852753331990528
+  Skipping twitter.
+2020-06-17 18:40:22.122981 - Processing e760f85fe0018ae58da3fdbbd1ea2abc: https://www.pe.com/2020/05/30/hundreds-protest-george-floyd-killing-in-temecula/
+  URL already processed. Skipping.
+2020-06-17 18:40:22.123083 - Processing 7dc41cb9db1116f3e229b1b2f88a1774: https://www.facebook.com/events/s/justice-for-george-floyd-peace/555454408678537/
+  URL already processed. Skipping.
+2020-06-17 18:40:22.123190 - Processing 8ce41e0da77e2f67313e1be06b1bb36d: https://www.baltimoresun.com/maryland/baltimore-city/bs-md-ci-baltimore-protest-george-floyd-20200530-bjz7m3jcdbg2vazznu7nujdqne-story.html
+  URL already processed. Skipping.
+2020-06-17 18:40:22.123311 - Processing 36f2dbecf17b600f2735c5d51c0ec475: https://twitter.com/APLRedPhoenix/status/1266856550754328577
+  Skipping twitter.
+2020-06-17 18:40:22.123333 - Processing 5a47f3a4e32fa32e98e78b2292c394ce: https://www.nbcnews.com/news/us-news/police-declare-emergency-columbus-ohio-new-george-floyd-protests-emerge-n1219691?cid=sm_npd_nn_tw_ma
+  URL already processed. Skipping.
+2020-06-17 18:40:22.123525 - Processing efde35349e1b8cee3e488109038bd27c: https://twitter.com/aletweetsnews/status/1266830233988202497
+  Skipping twitter.
+2020-06-17 18:40:22.123555 - Processing 02dafe0a52a1fb2053101efb09e1c622: https://twitter.com/KellyO/status/1266837843483254784
+  Skipping twitter.
+2020-06-17 18:40:22.123582 - Processing f55726b16bccb4e705b5361df79a5a4f: https://twitter.com/GarrettHaake/status/1266823666844815362
+  Skipping twitter.
+2020-06-17 18:40:22.123611 - Processing 8052e58b6f2e1854e5b7123367d93188: https://abc7.com/violence-erupts-amid-protests-in-los-angeles/6221684/
+  URL already processed. Skipping.
+2020-06-17 18:40:22.123765 - Processing b4e9783fb8ddb51817f3c551a84e2f96: https://laist.com/2020/05/30/los-angeles-george-floyd-protests-day-four.php
+  URL already processed. Skipping.
+2020-06-17 18:40:22.123878 - Processing 29119c47cc2251b4ca589b1376a11da4: https://twitter.com/youngharpo/status/1266836280156946432
+  Skipping twitter.
+2020-06-17 18:40:22.123910 - Processing 96828ef931c0f65fd39efb41c22357d0: https://twitter.com/VanLathan/status/1266836860212412416
+  Skipping twitter.
+2020-06-17 18:40:22.123940 - Processing 6abbd9b450c89bace1c931715cd54cfe: https://www.greensboro.com/news/local_news/protesters-gather-in-downtown-greensboro-over-george-floyds-death-in-minneapolis/article_02fd929e-0b8b-5422-adeb-67bd01287a4e.html
+  URL already processed. Skipping.
+2020-06-17 18:40:22.124078 - Processing f3b33f4a67c70b5b2d19544b65da9de5: https://twitter.com/yungbasq/status/1266832546572259329
+  Skipping twitter.
+2020-06-17 18:40:22.124112 - Processing 551947344f6cab2c0e55c3f0e759f056: https://twitter.com/chaelakaylaaa/status/1266774989098889216
+  Skipping twitter.
+2020-06-17 18:40:22.124141 - Processing 00c2266befdf4cd7ba0056a6cfc38d53: https://www.chicagotribune.com/news/breaking/ct-loop-protests-property-damage-20200530-ncvxjtwglnfoddlyj4yuhd6lwm-story.html
+  URL already processed. Skipping.
+2020-06-17 18:40:22.124278 - Processing 41b4537dfc3e5bc0c4c16b995e2e1019: https://www.facebook.com/events/s/chicago-justice-4-george-floyd/582696639054989/
+  URL already processed. Skipping.
+2020-06-17 18:40:22.124407 - Processing b7ae2a745443bf11dbfd3ce5a2e52f83: https://naarpr.org/updates/national-alliance-calls-national-day-of-protest-may-30th/
+  HTTP Error 403: Forbidden
+2020-06-17 18:40:22.870282 - Processing b571c54c90b13ba4e53d05cf2b93418e: https://abc7chicago.com/watch-live-chicago-protesters-rally-over-george-floyd-death/6220813/
+  URL already processed. Skipping.
+2020-06-17 18:40:22.870563 - Processing bdaa611cff48882d75f7f7589cf6f99c: https://twitter.com/soit_goes/status/1266835189226930177
+  Skipping twitter.
+2020-06-17 18:40:22.870600 - Processing 92bddce55cedd7dcdfc9a4131f84e80c: https://twitter.com/jkimpictures/status/1266812661142077444
+  Skipping twitter.
+2020-06-17 18:40:22.870628 - Processing f70f04d06c8276d706bb340f18c2dba3: http://www.themaneater.com/stories/2014/11/24/students-march-to-city-hall-after-decision/
+  URL already processed. Skipping.
+2020-06-17 18:40:22.870767 - Processing eca055466145a850492cfb9db434e642: http://thinkprogress.org/justice/2014/11/23/3596130/runners-from-atlanta-to-ferguson/
+  HTTP Error 403: Forbidden
+2020-06-17 18:40:23.896187 - Processing dad2b60383a358912cef254c51207204: http://www.washingtonpost.com/blogs/dr-gridlock/wp/2014/12/01/monday-morning-traffic-jams-in-d-c-possible-because-of-ferguson-related-protests/
+  URL already processed. Skipping.
+2020-06-17 18:40:23.897964 - Processing dad2b60383a358912cef254c51207204: http://www.washingtonpost.com/blogs/dr-gridlock/wp/2014/12/01/monday-morning-traffic-jams-in-d-c-possible-because-of-ferguson-related-protests/
+  URL already processed. Skipping.
+2020-06-17 18:40:23.898258 - Processing 55ed492a32ed76347c82e7118837ee75: http://www.latinpost.com/articles/24311/20141024/national-day-of-action-against-police-brutality.htm
+  URL already processed. Skipping.
+2020-06-17 18:40:23.898430 - Processing 72f3f730482f0f904ff40573afc89d82: http://www.ajc.com/news/news/protesters-block-i-75/nhqCY/
+  URL already processed. Skipping.
+2020-06-17 18:40:23.898582 - Processing 3534e3d3b21535ec86cc3f6b7e96e8fe: http://fox6now.com/2014/10/16/dontre-hamilton-protests-continue-onward/
+  URL already processed. Skipping.
+2020-06-17 18:40:23.898755 - Processing 0c0bb5a9a4df1a17f2a6607940e72f32: http://www.washingtonpost.com/politics/in-ferguson-coordinated-acts-of-disobedience-as-protests-evolve/2014/10/13/938241fc-531d-11e4-892e-602188e70e9c_story.html
+  URL already processed. Skipping.
+2020-06-17 18:40:23.898892 - Processing 0c0bb5a9a4df1a17f2a6607940e72f32: http://www.washingtonpost.com/politics/in-ferguson-coordinated-acts-of-disobedience-as-protests-evolve/2014/10/13/938241fc-531d-11e4-892e-602188e70e9c_story.html
+  URL already processed. Skipping.
+2020-06-17 18:40:23.899019 - Processing 7cdf7e3a75d8cff2dd54830b1ba4f07f: http://www.washingtonpost.com/news/morning-mix/wp/2014/10/14/protesters-at-st-louis-rams-game-black-lives-matter-on-and-off-the-field/
+  URL already processed. Skipping.
+2020-06-17 18:40:23.899103 - Processing ebbb117c6a5720dc823f3bc2eb033cc6: http://www.stltoday.com/entertainment/music/kevin-johnson/talib-kweli-dead-prez-cornel-west-speak-up-for-ferguson/article_e0eafa86-21e2-5e75-8575-ec62647c763a.html
+  URL already processed. Skipping.
+2020-06-17 18:40:23.899183 - Processing eea5d224ed57a611e3e043a625a9a876: http://www.stltoday.com/news/local/metro/at-church-in-lafayette-square-neighborhood-ferguson-protesters-plan-for/article_b7195262-0d9e-5530-93b0-2b0d88e1dfce.html
+  URL already processed. Skipping.
+2020-06-17 18:40:23.899259 - Processing 5ee5c8a99f2212867484717153c18685: http://www.stltoday.com/news/local/crime-and-courts/thousands-march-in-downtown-st-louis-to-protest-police-violence/article_eeb8ecda-6708-59fb-bac6-9561dda95333.html
+  URL already processed. Skipping.
+2020-06-17 18:40:23.899333 - Processing 5ee5c8a99f2212867484717153c18685: http://www.stltoday.com/news/local/crime-and-courts/thousands-march-in-downtown-st-louis-to-protest-police-violence/article_eeb8ecda-6708-59fb-bac6-9561dda95333.html
+  URL already processed. Skipping.
+2020-06-17 18:40:23.899407 - Processing 5ee5c8a99f2212867484717153c18685: http://www.stltoday.com/news/local/crime-and-courts/thousands-march-in-downtown-st-louis-to-protest-police-violence/article_eeb8ecda-6708-59fb-bac6-9561dda95333.html
+  URL already processed. Skipping.
+2020-06-17 18:40:23.899480 - Processing 5ee5c8a99f2212867484717153c18685: http://www.stltoday.com/news/local/crime-and-courts/thousands-march-in-downtown-st-louis-to-protest-police-violence/article_eeb8ecda-6708-59fb-bac6-9561dda95333.html
+  URL already processed. Skipping.
+2020-06-17 18:40:23.899553 - Processing a2aaa574e71fe3bc61a5d3dc949352b8: http://www.nytimes.com/2014/10/11/us/st-louis-police-shooting-protests.html
+  URL already processed. Skipping.
+2020-06-17 18:40:23.899666 - Processing a2aaa574e71fe3bc61a5d3dc949352b8: http://www.nytimes.com/2014/10/11/us/st-louis-police-shooting-protests.html
+  URL already processed. Skipping.
+2020-06-17 18:40:23.899785 - Processing b637a51e6bff59dae2d52d10845b3418: http://www.themaneater.com/stories/2014/10/8/mu4mikebrown-holds-rally-against-unjust-killings-b/
+  URL already processed. Skipping.
+2020-06-17 18:40:23.899911 - Processing 5571b5f6a6590b2c45c4d0db1b321725: http://www.washingtonpost.com/news/post-nation/wp/2014/10/05/protesters-interrupt-st-louis-symphony-with-requiem-for-mike-brown/
+  URL already processed. Skipping.
+2020-06-17 18:40:23.900029 - Processing 07e298ddf06e4d53a408e734d2341259: https://thisisreno.com/2020/06/community-gathers-downtown-in-support-of-white-coats-for-black-lives/
+  HTTP Error 403: Forbidden
+2020-06-17 18:40:24.503410 - Processing 09a4fc40196fb17261e9a8d85e26e58d: https://www.wdio.com/duluth-minnesota-news/northland-medical-workers-white-coats-for-black-lives-/5752205/
+  URL already processed. Skipping.
+2020-06-17 18:40:24.503682 - Processing 0182642287298319186171cf834c1f5c: https://ktvl.com/news/portland-medical-workers-hold-white-coats-for-black-lives-rally
+  URL already processed. Skipping.
+2020-06-17 18:40:24.503831 - Processing d1c7d3dec14b239af612cf16b4bb0db6: https://www.ksn.com/news/white-coats-for-black-lives-local-healthcare-workers-kneel-to-end-racial-inequality/
+  URL already processed. Skipping.
+2020-06-17 18:40:24.504052 - Processing dd7de582dc16d48a6df1c816923bf2bc: https://www.newhavenindependent.org/index.php/archives/entry/white_coats_kneel_for_black_lives/
+  URL already processed. Skipping.
+2020-06-17 18:40:24.504180 - Processing 64c3c8996429a80c90d90771a72248eb: https://www.news4jax.com/news/local/2020/06/05/healthcare-workers-hold-white-coats-for-black-lives-rally/
+  URL already processed. Skipping.
+2020-06-17 18:40:24.504325 - Processing 0f7dca566adfe5f3f84d1dc2e66c4bed: https://www.weau.com/content/news/Local-Mayo-workers-take-knee-in-White-Coats-For-Black-Lives-movement-571057521.html
+  URL already processed. Skipping.
+2020-06-17 18:40:24.504511 - Processing e1ef0b84abb52a6991a047d069849272: https://www.sltrib.com/news/2020/06/05/salt-lake-city-doctors/
+  URL already processed. Skipping.
+2020-06-17 18:40:24.504654 - Processing 9ca1eb225c9b77d782d7d917566c049a: https://newyork.cbslocal.com/2020/06/05/white-coats-for-black-lives/
+  URL already processed. Skipping.
+2020-06-17 18:40:24.504746 - Processing 14336d235518bb0a0e76515d681e28d2: https://twitter.com/CUAnschutz/status/1268985688436981761
+  Skipping twitter.
+2020-06-17 18:40:24.504768 - Processing 3fe94b0edcafddba9057e09d0a52d831: https://twitter.com/CUDentalMed/status/1269012489200480257
+  Skipping twitter.
+2020-06-17 18:40:24.504801 - Processing 4280bd8a01636551308b690560d4fece: https://gazette.com/news/health-care-workers-in-colorado-springs-take-a-knee-during-white-coats-for-black-lives/article_89989508-a76b-11ea-863e-0b388b877930.html
+  URL already processed. Skipping.
+2020-06-17 18:40:24.504976 - Processing 4280bd8a01636551308b690560d4fece: https://gazette.com/news/health-care-workers-in-colorado-springs-take-a-knee-during-white-coats-for-black-lives/article_89989508-a76b-11ea-863e-0b388b877930.html
+  URL already processed. Skipping.
+2020-06-17 18:40:24.505107 - Processing 4280bd8a01636551308b690560d4fece: https://gazette.com/news/health-care-workers-in-colorado-springs-take-a-knee-during-white-coats-for-black-lives/article_89989508-a76b-11ea-863e-0b388b877930.html
+  URL already processed. Skipping.
+2020-06-17 18:40:24.505228 - Processing cf62ca7788487ab3cb2b4e7bc2e77a90: https://patch.com/maryland/columbia/hcgh-doctors-staff-kneel-part-white-coats-black-lives
+  URL already processed. Skipping.
+2020-06-17 18:40:24.505311 - Processing 7603e12c742000683561e663a23f978d: https://www.masslive.com/springfield/2020/06/white-coats-for-black-lives-baystate-health-staff-take-a-knee-in-support-of-racial-justice.html
+  URL already processed. Skipping.
+2020-06-17 18:40:24.505391 - Processing 9f85d393d867e7a115b5953dfa6a6142: https://www.stltoday.com/lifestyles/health-med-fit/series-of-rallies-held-across-st-louis-region-as-outrage-continues-over-black-mans-death/article_2c3eabef-f38c-5d9a-9e15-c7142a5cc600.html
+  URL already processed. Skipping.
+2020-06-17 18:40:24.505611 - Processing 9f85d393d867e7a115b5953dfa6a6142: https://www.stltoday.com/lifestyles/health-med-fit/series-of-rallies-held-across-st-louis-region-as-outrage-continues-over-black-mans-death/article_2c3eabef-f38c-5d9a-9e15-c7142a5cc600.html
+  URL already processed. Skipping.
+2020-06-17 18:40:24.505727 - Processing 9f85d393d867e7a115b5953dfa6a6142: https://www.stltoday.com/lifestyles/health-med-fit/series-of-rallies-held-across-st-louis-region-as-outrage-continues-over-black-mans-death/article_2c3eabef-f38c-5d9a-9e15-c7142a5cc600.html
+  URL already processed. Skipping.
+2020-06-17 18:40:24.505935 - Processing 9f85d393d867e7a115b5953dfa6a6142: https://www.stltoday.com/lifestyles/health-med-fit/series-of-rallies-held-across-st-louis-region-as-outrage-continues-over-black-mans-death/article_2c3eabef-f38c-5d9a-9e15-c7142a5cc600.html
+  URL already processed. Skipping.
+2020-06-17 18:40:24.506058 - Processing 4ed9e1a4f0c84162422322dfc0d9e193: https://oklahoman.com/article/5663992/oklahoma-medical-professionals-rally-in-support-of-black-lives
+  URL already processed. Skipping.
+2020-06-17 18:40:24.506200 - Processing 7b8207767c05a821705084b6111abe67: https://www.inquirer.com/health/doctors-residents-white-coats-black-lives-philadelphia-demonstration-protest-20200605.html
+  URL already processed. Skipping.
+2020-06-17 18:40:24.506411 - Processing 92aa8cd72c5834ed89653573707ba5ed: https://abc11.com/news/protesters-gather-in-durham-for-sandra-bland-/898233/
+  URL already processed. Skipping.
+2020-06-17 18:40:24.506531 - Processing 89037cbb01d6322370ef0bfd16d5e2cc: http://www.wndu.com/home/headlines/Black-Lives-Matter-Cincinnati-hosts-third-rally-in-one-week-320386801.html
+  URL already processed. Skipping.
+2020-06-17 18:40:24.506652 - Processing 5edfe5121ea48607da43869c9f074cc2: http://www.wlwt.com/news/black-lives-matter-hold-rally-after-charges-filed-against-uc-officer-ray-tensing/34427260
+  URL already processed. Skipping.
+2020-06-17 18:40:24.506786 - Processing 0f13e06aaf05ce3ece161db9a728ac93: http://thescoopblog.dallasnews.com/2015/07/dozens-gather-at-belo-garden-to-protest-deaths-of-sandra-bland-sam-dubose.html/
+  HTTP Error 404: Not Found
+2020-06-17 18:40:26.966412 - Processing 7be3cd4349a6b0a81c9d0280067ac121: http://www.wlwt.com/news/black-lives-matter-hold-rally-after-charges-filed-against-uc-officer-ray-tensing/34427260http://www.wlwt.com/news/black-lives-matter-hold-rally-after-charges-filed-against-uc-officer-ray-tensing/34427260
+  HTTP Error 404: Not Found
+2020-06-17 18:40:27.987083 - Processing f9d9a046dd6501d85e19101b849b3f13: http://www.chron.com/news/houston-texas/houston/article/Protesters-rally-at-Houston-Chronicle-over-6410659.php
+  URL already processed. Skipping.
+2020-06-17 18:40:27.987401 - Processing 1ce16a98f5818f5efbff6591a06f03c9: http://www.chicagotribune.com/news/nationworld/ct-sandra-bland-marijuana-20150728-story.html
+  URL already processed. Skipping.
+2020-06-17 18:40:27.987552 - Processing ae17da0b4c847c9ac315dd25ef1bca54: http://globalnews.ca/news/2134082/hundreds-protest-deaths-of-jermaine-carby-and-andrew-loku-in-toronto/
+  URL already processed. Skipping.
+2020-06-17 18:40:27.987685 - Processing 11486e5eafa7f75a59ece1c6d31de916: http://fox2now.com/2015/07/27/sandra-blands-death-sparks-say-her-name-protest-in-greenville/
+  URL already processed. Skipping.
+2020-06-17 18:40:27.987789 - Processing 41f06346a331aaa23b926d90d02b5225: http://www.torontosun.com/2015/07/27/groups-in-texas-hold-vigil-protest-in-jail-death-of-sandra-bland
+  URL already processed. Skipping.
+2020-06-17 18:40:27.987921 - Processing a772aa197b82f97a871da19a4ea326a4: http://abc13.com/news/protest-held-against-dps-trooper-who-arrested-sandra-bland/884063/
+  URL already processed. Skipping.
+2020-06-17 18:40:27.988055 - Processing b7cc0e89ae4d86a2523bd2b56ccd7145: http://www.newsnet5.com/news/local-news/cleveland-metro/protesters-rally-against-cleveland-police
+  HTTP Error 404: Not Found
+2020-06-17 18:40:30.449582 - Processing 2733b6196d8a74f8b6e261182872cc2b: http://www.newsrecord.org/news/demonstrators-retrace-protest-samuel-dubose-s-death/article_372b8572-3485-11e5-b770-ef863db2d347.html
+  URL already processed. Skipping.
+2020-06-17 18:40:30.450186 - Processing 8e22452ec9935f907a656cc165154d96: http://www.demotix.com/news/8201821/million-peoples-march-through-newark-justice-and-equality/all-media
+  HTTP Error 403: Forbidden
+2020-06-17 18:40:31.054057 - Processing 4a9d1aebdaaba5e7f8941b38533f2f45: http://www.wcpo.com/news/local-news/hamilton-county/cincinnati/sam-dubose-ray-tensing-protesters-demand-prosecutor-release-video-from-deadly-uc-officer-shooting
+  HTTP Error 404: Not Found
+2020-06-17 18:40:31.878096 - Processing dfb00191dde8e6db0512efcc8f228bab: http://gothamist.com/2015/07/23/arrests_sandra_bland_nypd.php#photo-1
+  URL already processed. Skipping.
+2020-06-17 18:40:31.878404 - Processing a615cc85a947f79250cdf2861eaf4854: http://www.nbclosangeles.com/news/local/Protest-South-LA-Woman-Died-in-Texas-Jail-Cell-318124661.html
+  URL already processed. Skipping.
+2020-06-17 18:40:31.878570 - Processing 03898825d61ba179de39df90d495d1fc: http://www.charlotteobserver.com/news/local/crime/article27881176.html
+  Blacklisted URL hash. Skipping.
+2020-06-17 18:40:31.878608 - Processing c12d2d6e2a2fd3729005c24374c2e441: http://crimeblog.dallasnews.com/2015/07/protesters-march-in-downtown-dallas-to-remember-sandra-bland.html/
+  HTTP Error 404: Not Found
+2020-06-17 18:40:33.930974 - Processing db42074ae90b3f58e42c974f594c045e: http://time.com/3963692/bernie-sanders-martin-omalley-black-lives-matter/
+  Cleaning...
+  Writing to disk...
+2020-06-17 18:40:36.181105 - Processing e60fd049d9c85959cfc9f1e78dada8b5: http://www.godanriver.com/news/danville/danville-prayer-vigil-held-for-shooting-victims-at-south-carolina/article_13233c8c-15dc-11e5-b292-0330e0ca4a5c.html
+  Cleaning...
+  Writing to disk...
+2020-06-17 18:40:40.790163 - Processing e05713b9c378e9e8809efcd221265b4b: http://www.heraldpalladium.com/news/local/church-holds-vigil-for-shooting-victims/article_9a5623dd-4b66-50ca-8374-572e993904cf.html
+  Cleaning...
+  Writing to disk...
+2020-06-17 18:40:47.485674 - Processing 693825f9157f1ffda97d02d16f005f11: http://whnt.com/2015/06/18/huntsville-ame-church-holds-prayer-vigil-for-charleston-victims/
+  Cleaning...
+  Writing to disk...
+2020-06-17 18:40:51.565322 - Processing 37335ae957cb70c29a6343d6cec47204: http://wthitv.com/2015/06/18/emotions-from-south-carolina-shooting-felt-locally-church-holds-prayer-vigil-to-remember-victims/
+  HTTP Error 404: Not Found
+2020-06-17 18:40:53.588021 - Processing af68238889d4538d4a817b9cfb6e6454: http://www.roanoke.com/news/local/roanoke_county/roanoke-religious-leaders-call-for-prayers-unity-at-vigil-for/article_ea64c31a-242a-512c-a57d-7d9d02e0b551.html
+  Cleaning...
+  Writing to disk...
+2020-06-17 18:40:58.762771 - Processing c91a2b9f749786b5f0da7621c06b45b0: http://hamptonroads.com/2015/06/vigil-held-virginia-beach-church-charleston-victims
+  HTTP Error 404: Not Found
+2020-06-17 18:41:01.165570 - Processing 4799c5b6e6fbfccdfcd232bfbf22c5c1: http://www.carolinalive.com/news/story.aspx?id=1219703
+  HTTP Error 404: Not Found
+2020-06-17 18:41:03.008536 - Processing 3f18ed9b4b3cc53d5f55255ba8ead775: http://www.wcjb.com/local-news/2015/06/local-pastors-hold-charleston-vigil
+  HTTP Error 404: Not Found
+2020-06-17 18:41:05.875825 - Processing 9d8ef486bf3d925dd30b09312374b4b2: http://www.kezi.com/news/video/308346321.html
+  HTTP Error 404: Not Found
+2020-06-17 18:41:06.899330 - Processing 128db236396edd2cf25620dac821e1fb: http://www.kentucky.com/2015/06/18/3907340/lexington-richmond-churches-hold.html
