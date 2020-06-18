@@ -21,7 +21,7 @@ def prush(*args):
 @contextmanager
 def time_limit(seconds):
     def signal_handler(signum, frame):
-        raise TimeoutError("Timed out!")
+        raise TimeoutError("Time limit exceeded.")
     signal.signal(signal.SIGALRM, signal_handler)
     signal.alarm(seconds)
     try:
