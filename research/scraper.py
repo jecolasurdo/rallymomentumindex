@@ -183,7 +183,7 @@ def clean(extracted_file="research/data/extracted.json"):
         f.write(json.dumps(cleaned, indent=2))
 
 
-def hydrate_codex(clean_file="research/data/cleaned.json", url_timeout=5):
+def hydrate_codex(clean_file="research/data/cleaned.json", url_timeout=10, max_consecutive_exceptions=10):
     prush("Loading cleaned data...")
     with open(os.path.join(os.getcwd(), clean_file), 'r') as f:
         reports = json.load(f)
@@ -197,18 +197,26 @@ def hydrate_codex(clean_file="research/data/cleaned.json", url_timeout=5):
     prush("Distinct URL Count:", url_count)
     urldict = None
 
+    consecutive_unhandled = 0
     processed_urls = 0
     for report in reports:
         for u in report["urls"]:
             processed_urls = processed_urls + 1
+            pct = round(processed_urls/url_count*100, 2)
             url, hsh = u["url"], u["hash"]
-            prush("{} - {}/{} - Processing {}: {}".format(datetime.now(),processed_urls, url_count, hsh, url))
+            prush("{} - {}/{} ({}%) - Processing {}: {}".format(datetime.now(),
+                                                               processed_urls,
+                                                               url_count,
+                                                               pct,
+                                                               hsh,
+                                                               url))
 
             if "twitter" in url:
                 prush("  Skipping twitter.")
                 continue
 
-            hsh_file = os.path.join(os.getcwd(), "research/data/codex", hsh + ".txt")
+            hsh_file = os.path.join(
+                os.getcwd(), "research/data/codex", hsh + ".txt")
             if os.path.exists(hsh_file):
                 prush("  URL already processed. Skipping.")
                 continue
@@ -223,17 +231,22 @@ def hydrate_codex(clean_file="research/data/cleaned.json", url_timeout=5):
                 prush("  Timeout. Skipping.")
                 continue
             except Exception as e:
+                consecutive_unhandled = consecutive_unhandled + 1
+                if consecutive_unhandled > max_consecutive_exceptions:
+                    prush("Consecutive exception limit exceeded. Halting.")
+                    raise e
                 prush(e)
-                raise e
-                
+                prush("Unanticipated exception encountered. Trying to continue with next URL.")
+                continue
+
+            consecutive_unhandled = 0
             prush("  Cleaning...")
             document = doc.Doc(response.read()).clean
             if "JavaScript" in document:
-                prush("  JavaScript issue at", url)
+                prush("  Possible JS issue.")
 
             prush("  Writing to disk...")
             with open(os.path.join(os.getcwd(), "research/data/codex", hsh_file), 'w') as f:
                 f.write(document)
-    
-    prush("Done.")
 
+    prush("Done.")
