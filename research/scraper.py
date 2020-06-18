@@ -206,6 +206,9 @@ def hydrate_codex(clean_file="research/data/cleaned.json"):
             except urllib.error.HTTPError as e:
                 prush("  {}".format(e))
                 continue
+            except TimeoutError:
+                prush("  Timeout. Skipping.")
+                continue
             except Exception as e:
                 prush(e)
                 raise e
