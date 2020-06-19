@@ -288,7 +288,7 @@ def hydrate_codex(clean_file="research/data/cleaned.json", url_timeout=10, max_c
 #         f.write(document)
 #     return ret(True, "Success")
 
-def hydrate_codex(clean_file="research/data/cleaned.json", url_timeout=10, max_consecutive_exceptions=10):
+async def _hydrate_codex(clean_file="research/data/cleaned.json", url_timeout=10, max_consecutive_exceptions=10):
     prush("Loading cleaned data...")
     with open(os.path.join(os.getcwd(), clean_file), 'r') as f:
         reports = json.load(f)
@@ -305,17 +305,23 @@ def hydrate_codex(clean_file="research/data/cleaned.json", url_timeout=10, max_c
     work = []
     for report in reports:
         for u in report["urls"]:
-            work.append(get_html(u["url"]))
+            work.append(get_html(u))
     
+    done, pending = await asyncio.wait(work, return_when=asyncio.FIRST_COMPLETED)
+    while len(pending) > 0:
+        for d in done:
+            print(d.result())
+
+def hydrate_codex():
     loop = asyncio.get_event_loop()
-    loop.run_until_complete(asyncio.wait(work))
-    prush("Done.")
+    loop.run_until_complete(_hydrate_codex())
+    loop.close()
 
-async def get_html(url):
+async def get_html(url_info):
     async with aiohttp.ClientSession() as session:
-        return await fetch(session, url)
+        return await fetch(session, url_info)
 
-async def fetch(session, url):
-    async with session.get(url) as response:
-        print("getting", url)
-        return await response.text()
+async def fetch(session, url_info):
+    async with session.get(url_info["url"]) as response:
+        html = await response.text()
+    return url_info["hash"]
