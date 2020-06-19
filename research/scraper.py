@@ -5,6 +5,7 @@ import time
 import urllib
 from datetime import datetime
 import asyncio
+import aiohttp
 
 from lxml import html
 from selenium import webdriver
@@ -223,34 +224,98 @@ def hydrate_codex(clean_file="research/data/cleaned.json", url_timeout=10, max_c
     prush("Done.")
 
     
-def _process_url(hsh, url, url_timeout):
-    def ret(successful, msg):
-        return {
-            "hsh":hsh,
-            "url":url,
-            "successful":successful,
-            "msg":msg
-        }
+# def _process_url(hsh, url, url_timeout):
+#     def ret(successful, msg):
+#         return {
+#             "hsh":hsh,
+#             "url":url,
+#             "successful":successful,
+#             "msg":msg
+#         }
 
-    if "twitter" in url:
-        return ret(True, "Skipping twitter.")
+#     if "twitter" in url:
+#         return ret(True, "Skipping twitter.")
 
-    hsh_file = os.path.join(
-        os.getcwd(), "research/data/codex", hsh + ".txt")
-    if os.path.exists(hsh_file):
-        return ret(True, "URL already processed. Skipping.")
+#     hsh_file = os.path.join(
+#         os.getcwd(), "research/data/codex", hsh + ".txt")
+#     if os.path.exists(hsh_file):
+#         return ret(True, "URL already processed. Skipping.")
 
-    try:
-        with utils.time_limit(url_timeout):
-            response = urllib.request.urlopen(url)
-    except urllib.error.HTTPError as e:
-        return ret(True, e)
-    except TimeoutError:
-        return ret(True, "Timeout. Skipping.")
-    except Exception as e:
-        return ret(False, e)
+#     try:
+#         with utils.time_limit(url_timeout):
+#             response = urllib.request.urlopen(url)
+#     except urllib.error.HTTPError as e:
+#         return ret(True, e)
+#     except TimeoutError:
+#         return ret(True, "Timeout. Skipping.")
+#     except Exception as e:
+#         return ret(False, e)
 
-    document = doc.Doc(response.read()).clean
-    with open(os.path.join(os.getcwd(), "research/data/codex", hsh_file), 'w') as f:
-        f.write(document)
-    return ret(True, "Success")
+#     document = doc.Doc(response.read()).clean
+#     with open(os.path.join(os.getcwd(), "research/data/codex", hsh_file), 'w') as f:
+#         f.write(document)
+#     return ret(True, "Success")
+
+# def _process_url(hsh, url, url_timeout):
+#     def ret(successful, msg):
+#         return {
+#             "hsh":hsh,
+#             "url":url,
+#             "successful":successful,
+#             "msg":msg
+#         }
+
+#     if "twitter" in url:
+#         return ret(True, "Skipping twitter.")
+
+#     hsh_file = os.path.join(
+#         os.getcwd(), "research/data/codex", hsh + ".txt")
+#     if os.path.exists(hsh_file):
+#         return ret(True, "URL already processed. Skipping.")
+
+#     try:
+#         with utils.time_limit(url_timeout):
+#             response = urllib.request.urlopen(url)
+#     except urllib.error.HTTPError as e:
+#         return ret(True, e)
+#     except TimeoutError:
+#         return ret(True, "Timeout. Skipping.")
+#     except Exception as e:
+#         return ret(False, e)
+
+#     document = doc.Doc(response.read()).clean
+#     with open(os.path.join(os.getcwd(), "research/data/codex", hsh_file), 'w') as f:
+#         f.write(document)
+#     return ret(True, "Success")
+
+def hydrate_codex(clean_file="research/data/cleaned.json", url_timeout=10, max_consecutive_exceptions=10):
+    prush("Loading cleaned data...")
+    with open(os.path.join(os.getcwd(), clean_file), 'r') as f:
+        reports = json.load(f)
+
+    prush("Counting distinct URLs to process...")
+    urldict = dict()
+    for report in reports:
+        for u in report["urls"]:
+            urldict[u["hash"]] = True
+    url_count = len(urldict.keys())
+    prush("Distinct URL Count:", url_count)
+    urldict = None
+
+    work = []
+    for report in reports:
+        for u in report["urls"]:
+            work.append(get_html(u["url"]))
+    
+    loop = asyncio.get_event_loop()
+    loop.run_until_complete(asyncio.wait(work))
+    prush("Done.")
+
+async def get_html(url):
+    async with aiohttp.ClientSession() as session:
+        return await fetch(session, url)
+
+async def fetch(session, url):
+    async with session.get(url) as response:
+        print("getting", url)
+        return await response.text()
