@@ -185,76 +185,44 @@ def clean(extracted_file="research/data/extracted.json"):
         f.write(json.dumps(cleaned, indent=2))
 
 
-def hydrate_codex(clean_file="research/data/cleaned.json", url_timeout=10, max_consecutive_exceptions=10):
-    prush("Loading cleaned data...")
-    with open(os.path.join(os.getcwd(), clean_file), 'r') as f:
-        reports = json.load(f)
+# def hydrate_codex(clean_file="research/data/cleaned.json", url_timeout=10, max_consecutive_exceptions=10):
+#     prush("Loading cleaned data...")
+#     with open(os.path.join(os.getcwd(), clean_file), 'r') as f:
+#         reports = json.load(f)
 
-    prush("Counting distinct URLs to process...")
-    urldict = dict()
-    for report in reports:
-        for u in report["urls"]:
-            urldict[u["hash"]] = True
-    url_count = len(urldict.keys())
-    prush("Distinct URL Count:", url_count)
-    urldict = None
+#     prush("Counting distinct URLs to process...")
+#     urldict = dict()
+#     for report in reports:
+#         for u in report["urls"]:
+#             urldict[u["hash"]] = True
+#     url_count = len(urldict.keys())
+#     prush("Distinct URL Count:", url_count)
+#     urldict = None
 
-    consecutive_unhandled = 0
-    processed_urls = 0
-    for report in reports:
-        for u in report["urls"]:
-            processed_urls = processed_urls + 1
-            pct = round(processed_urls/url_count*100, 2)
-            url, hsh = u["url"], u["hash"]
-            prush("{} - {}/{} ({}%) - Processing {}: {}".format(datetime.now(),
-                                                               processed_urls,
-                                                               url_count,
-                                                               pct,
-                                                               hsh,
-                                                               url))
-        result = _process_url(hsh, url, url_timeout)
-        if result["successful"]:
-            consecutive_unhandled = 0
-        else:
-            consecutive_unhandled = consecutive_unhandled + 1
-            if consecutive_unhandled > max_consecutive_exceptions:
-                prush("Consecutive exception limit exceeded. Halting.")
-                raise Exception(result["msg"])
+#     consecutive_unhandled = 0
+#     processed_urls = 0
+#     for report in reports:
+#         for u in report["urls"]:
+#             processed_urls = processed_urls + 1
+#             pct = round(processed_urls/url_count*100, 2)
+#             url, hsh = u["url"], u["hash"]
+#             prush("{} - {}/{} ({}%) - Processing {}: {}".format(datetime.now(),
+#                                                                processed_urls,
+#                                                                url_count,
+#                                                                pct,
+#                                                                hsh,
+#                                                                url))
+#         result = _process_url(hsh, url, url_timeout)
+#         if result["successful"]:
+#             consecutive_unhandled = 0
+#         else:
+#             consecutive_unhandled = consecutive_unhandled + 1
+#             if consecutive_unhandled > max_consecutive_exceptions:
+#                 prush("Consecutive exception limit exceeded. Halting.")
+#                 raise Exception(result["msg"])
 
-    prush("Done.")
+#     prush("Done.")
 
-    
-# def _process_url(hsh, url, url_timeout):
-#     def ret(successful, msg):
-#         return {
-#             "hsh":hsh,
-#             "url":url,
-#             "successful":successful,
-#             "msg":msg
-#         }
-
-#     if "twitter" in url:
-#         return ret(True, "Skipping twitter.")
-
-#     hsh_file = os.path.join(
-#         os.getcwd(), "research/data/codex", hsh + ".txt")
-#     if os.path.exists(hsh_file):
-#         return ret(True, "URL already processed. Skipping.")
-
-#     try:
-#         with utils.time_limit(url_timeout):
-#             response = urllib.request.urlopen(url)
-#     except urllib.error.HTTPError as e:
-#         return ret(True, e)
-#     except TimeoutError:
-#         return ret(True, "Timeout. Skipping.")
-#     except Exception as e:
-#         return ret(False, e)
-
-#     document = doc.Doc(response.read()).clean
-#     with open(os.path.join(os.getcwd(), "research/data/codex", hsh_file), 'w') as f:
-#         f.write(document)
-#     return ret(True, "Success")
 
 # def _process_url(hsh, url, url_timeout):
 #     def ret(successful, msg):
@@ -294,34 +262,50 @@ async def _hydrate_codex(clean_file="research/data/cleaned.json", url_timeout=10
         reports = json.load(f)
 
     prush("Counting distinct URLs to process...")
-    urldict = dict()
+    urlset = set()
+    pending = []
     for report in reports:
-        for u in report["urls"]:
-            urldict[u["hash"]] = True
-    url_count = len(urldict.keys())
+        for url_info in report["urls"]:
+            urlset.add(url_info["hash"])
+            pending.append(_get_html(url_info))
+    url_count = len(urlset)
     prush("Distinct URL Count:", url_count)
-    urldict = None
-
-    work = []
-    for report in reports:
-        for u in report["urls"]:
-            work.append(get_html(u))
+    urlset = None
     
-    done, pending = await asyncio.wait(work, return_when=asyncio.FIRST_COMPLETED)
     while len(pending) > 0:
+        done, pending = await asyncio.wait(pending, return_when=asyncio.FIRST_COMPLETED)
         for d in done:
-            print(d.result())
+            result = d.result()
+            print(result["hsh"], result["successful"])
 
 def hydrate_codex():
     loop = asyncio.get_event_loop()
     loop.run_until_complete(_hydrate_codex())
     loop.close()
 
-async def get_html(url_info):
+async def _get_html(url_info):
     async with aiohttp.ClientSession() as session:
-        return await fetch(session, url_info)
+        return await _fetch(session, url_info)
 
-async def fetch(session, url_info):
-    async with session.get(url_info["url"]) as response:
-        html = await response.text()
-    return url_info["hash"]
+
+async def _fetch(session, url_info):
+    def ret(successful, msg, html):
+        return {
+            "hsh":url_info["hash"],
+            "url":url_info["url"],
+            "html":html,
+            "successful":successful,
+            "msg":msg
+        }
+        
+    try:
+        # with utils.time_limit(url_timeout):
+        async with session.get(url_info["url"]) as response:
+            html = await response.text()
+    except urllib.error.HTTPError as e:
+        return ret(True, e, "")
+    except TimeoutError:
+        return ret(True, "Timeout. Skipping.", "")
+    except Exception as e:
+        return ret(False, e, "")
+    return ret(True, "Success", html)
