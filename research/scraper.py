@@ -2,6 +2,7 @@ import asyncio
 import json
 import os
 import os.path
+import random
 import time
 import urllib
 from datetime import datetime
@@ -24,7 +25,7 @@ WAIT_DECREMENT_INTEVAL = 1
 WAIT_INCREMENT_INTEVAL = 1
 EXTRACT_FILE_NAME = "extracted_data.json"
 CODEX_DIRECTORY = "research/data/codex"
-CODEX_SEMAPHORE_LIMIT = 50
+CODEX_SEMAPHORE_LIMIT = 25
 CODEX_FETCH_TIMEOUT = 30
 
 
@@ -189,6 +190,7 @@ def clean(extracted_file="research/data/extracted.json"):
 
 
 def hydrate_codex():
+    prush("Initializing...")
     loop = asyncio.get_event_loop()
     loop.run_until_complete(_hydrate_codex())
     loop.close()
@@ -212,11 +214,23 @@ async def _hydrate_codex(clean_file="research/data/cleaned.json", url_timeout=10
     prush("Distinct URL Count:", url_count_distinct)
     urlset = None
 
+    # Shuffle the pending list to try and increase the distance between calls
+    # to each domain. Helps avoid having a target think this is a DoS attack.
+    # Even though we process the URLs asyncronously, shuffling helps further
+    # distribute the domains.
+    random.shuffle(pending)
     url_count_processed = 0
     success_count = 0
     while len(pending) > 0:
         done, pending = await asyncio.wait(pending, return_when=asyncio.FIRST_COMPLETED)
         for d in done:
+            # Exceptions should all be caught within the _fetch function. If
+            # not, we unwind and get the hell out of dodge.
+            if d.exception() is not None:
+                for p in pending:
+                    p.cancel()
+                raise d.exception()
+
             result = d.result()
             url_count_processed = url_count_processed + 1
             pct = round(url_count_processed/url_count*100, 2)
@@ -244,6 +258,11 @@ async def _fetch(url_info, sem):
     if "twitter.com" in url_info["url"]:
         return ret(False, "Skipping twitter.")
 
+    hsh_file = os.path.join(
+        os.getcwd(), CODEX_DIRECTORY, url_info["hash"] + ".txt")
+    if os.path.exists(hsh_file):
+        return ret(True, "URL already processed. Skipping.")
+
     try:
         timeout = aiohttp.ClientTimeout(total=CODEX_FETCH_TIMEOUT)
         async with aiohttp.ClientSession(timeout=timeout) as session:
@@ -257,11 +276,6 @@ async def _fetch(url_info, sem):
         if str(msg) == '':
             msg = type(e)
         return ret(False, "Exception: '{}'".format(msg))
-
-    hsh_file = os.path.join(
-        os.getcwd(), CODEX_DIRECTORY, url_info["hash"] + ".txt")
-    if os.path.exists(hsh_file):
-        return ret(True, "URL already processed. Skipping.")
 
     document = doc.Doc(html).clean
     with open(os.path.join(os.getcwd(), CODEX_DIRECTORY, hsh_file), 'w') as f:
