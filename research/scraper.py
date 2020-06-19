@@ -25,6 +25,7 @@ WAIT_INCREMENT_INTEVAL = 1
 EXTRACT_FILE_NAME = "extracted_data.json"
 CODEX_DIRECTORY = "research/data/codex"
 CODEX_SEMAPHORE_LIMIT = 50
+CODEX_FETCH_TIMEOUT = 30
 
 
 def scrape(raw_directory="research/data/raw_html", num_pages=165):
@@ -205,7 +206,7 @@ async def _hydrate_codex(clean_file="research/data/cleaned.json", url_timeout=10
     for report in reports:
         for url_info in report["urls"]:
             urlset.add(url_info["hash"])
-            pending.append(_get_html(url_info, sem))
+            pending.append(_fetch(url_info, sem))
     url_count_distinct = len(urlset)
     url_count = len(pending)
     prush("Distinct URL Count:", url_count_distinct)
@@ -231,12 +232,7 @@ async def _hydrate_codex(clean_file="research/data/cleaned.json", url_timeout=10
     prush("Done. {}/{} successully processed.".format(success_count, url_count))
 
 
-async def _get_html(url_info, sem):
-    async with aiohttp.ClientSession() as session:
-        return await _fetch(session, url_info, sem)
-
-
-async def _fetch(session, url_info, sem, url_timeout=30):
+async def _fetch(url_info, sem):
     def ret(successful, msg):
         return {
             "hash": url_info["hash"],
@@ -249,8 +245,12 @@ async def _fetch(session, url_info, sem, url_timeout=30):
         return ret(False, "Skipping twitter.")
 
     try:
-        with utils.time_limit(url_timeout):
+        timeout = aiohttp.ClientTimeout(total=CODEX_FETCH_TIMEOUT)
+        async with aiohttp.ClientSession(timeout=timeout) as session:
             async with sem, session.get(url_info["url"]) as response:
+                if response.status != 200:
+                    raise Exception(
+                        "{} - {}".format(response.status, response.reason))
                 html = await response.text()
     except Exception as e:
         return ret(False, "Exception: '{}'".format(e))
