@@ -253,7 +253,10 @@ async def _fetch(url_info, sem):
                         "{} - {}".format(response.status, response.reason))
                 html = await response.text()
     except Exception as e:
-        return ret(False, "Exception: '{}'".format(e))
+        msg = e
+        if str(msg) == '':
+            msg = type(e)
+        return ret(False, "Exception: '{}'".format(msg))
 
     hsh_file = os.path.join(
         os.getcwd(), CODEX_DIRECTORY, url_info["hash"] + ".txt")
