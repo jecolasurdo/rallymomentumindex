@@ -211,20 +211,24 @@ def hydrate_codex(clean_file="research/data/cleaned.json", url_timeout=10, max_c
                                                                pct,
                                                                hsh,
                                                                url))
-        consecutive_unhandled = consecutive_unhandled + 1
-        if consecutive_unhandled > max_consecutive_exceptions:
-            prush("Consecutive exception limit exceeded. Halting.")
-            raise e
+        result = _process_url(hsh, url, url_timeout)
+        if result["successful"]:
+            consecutive_unhandled = 0
+        else:
+            consecutive_unhandled = consecutive_unhandled + 1
+            if consecutive_unhandled > max_consecutive_exceptions:
+                prush("Consecutive exception limit exceeded. Halting.")
+                raise Exception(result["msg"])
 
     prush("Done.")
 
     
-async def _process_url(hsh, url, url_timeout):
+def _process_url(hsh, url, url_timeout):
     def ret(successful, msg):
         return {
             "hsh":hsh,
             "url":url,
-            "successfull":successful,
+            "successful":successful,
             "msg":msg
         }
 
