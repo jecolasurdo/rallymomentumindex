@@ -1,7 +1,5 @@
 
 import hashlib
-from contextlib import contextmanager
-import signal
 import sys
 
 
@@ -16,15 +14,3 @@ def hash(s):
 def prush(*args):
     print(*args)
     sys.stdout.flush()
-
-
-@contextmanager
-def time_limit(seconds):
-    def signal_handler(signum, frame):
-        raise TimeoutError("Time limit exceeded.")
-    signal.signal(signal.SIGALRM, signal_handler)
-    signal.alarm(seconds)
-    try:
-        yield
-    finally:
-        signal.alarm(0)

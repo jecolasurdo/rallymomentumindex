@@ -5,3 +5,4 @@ textpipe
 lxml
 pytest
 pylint
+aiohttp
