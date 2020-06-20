@@ -1,6 +1,7 @@
 wheel
 pytest
 pylint
+jupyter
 
 Google-Search-API==1.1.14
 selenium==3.141.0
