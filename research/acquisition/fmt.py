@@ -2,7 +2,7 @@ import math
 import re
 from datetime import datetime
 
-from research import utils
+from research.acquisition import utils
 
 
 def location(s):

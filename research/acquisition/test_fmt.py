@@ -1,7 +1,7 @@
 
 from datetime import datetime
 
-from research import fmt
+from research.acquisition import fmt
 
 def test_date():
     tt = [
