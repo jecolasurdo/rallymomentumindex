@@ -10,4 +10,5 @@ en-core-web-lg @ http://github.com/explosion/spacy-models/releases/download/en_c
 spacy==2.3.0
 lxml==4.5.1
 aiohttp==3.6.2
-toolz==0.10.0
+scipy==1.4.1
+matplotlib==3.2.2
