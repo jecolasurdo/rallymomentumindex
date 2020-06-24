@@ -1,3 +1,7 @@
+"""The elephrame module contains functions for building a codex from links
+found at elephrame.com.
+"""
+
 import asyncio
 import json
 import os
