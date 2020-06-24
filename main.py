@@ -1,3 +1,3 @@
-from research.analysis import cleaner
+from research.acquisition.arbitrary import scrape_topics
 
-cleaner.clean()
+scrape_topics()
