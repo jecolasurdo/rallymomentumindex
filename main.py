@@ -1,3 +1,3 @@
-from research.acquisition.arbitrary import scrape_subjects
+from research.acquisition.arbitrary import build_codex 
 
-scrape_subjects()
+build_codex()
