@@ -1,3 +1,3 @@
-from research.acquisition.arbitrary import scrape_topics
+from research.acquisition.arbitrary import scrape_subjects
 
-scrape_topics()
+scrape_subjects()
