@@ -6,10 +6,10 @@ that has no tie to any single specific topic.
 import asyncio
 import json
 import os.path
-from random import choice
+import random
 import time
 
-from google import google
+from googlesearch import search, get_random_user_agent
 from lxml import html
 from selenium import webdriver
 
@@ -53,8 +53,8 @@ def build_codex(doc_count=100, subjects_dir="research/data/arbitrary", destinati
     based on a provided list of subjects.
     """
     SUBJECT_BATCH_SIZE = 5
-    BATCH_BUFFER_MULTIPLIER = 2
-    SEARCH_PAGE_COUNT = 5
+    MAX_SEARCH_RESULTS = 100
+    SEARCH_RESULTS_PER_PAGE = 100
     MIN_DOC_LENGTH = 200
 
     subjects_file = os.path.join(
@@ -62,40 +62,43 @@ def build_codex(doc_count=100, subjects_dir="research/data/arbitrary", destinati
     with open(subjects_file, 'r') as f:
         subjects = json.load(f)
 
-    def search():
-        search_results = []
-        while len(search_results) < SUBJECT_BATCH_SIZE * BATCH_BUFFER_MULTIPLIER:
-            subject = choice(subjects) + " news"
-            prush("Searching for subject '{}'...".format(subject))
-            try:
-                search_results = google.search(subject, pages=SEARCH_PAGE_COUNT)
-            except Exception as e:
-                prush(e)
-                time.sleep(5)
-
+    def _search():
+        # Waiting a moment before hitting the search API again
+        # trying to avoid rate limits. Using a guass distribution to give
+        # some jitter to the wait times to make us look a little less
+        # uniform to google. googlesearch.search() implements an internal
+        # waiter, but we need to control the waits from outside the function
+        # since the internal waiter doesn't account for successive calls to the
+        # function itself.
+        random.seed()
+        pause = random.gauss(3, 1)
+        prush("Pausing for {} seconds to avoid rate limits...".format(round(pause,2)))
+        time.sleep(pause)
+        subject = random.choice(subjects) + " news"
+        prush("Searching for subject '{}'...".format(subject))
+        search_results = list(search(subject, num=SEARCH_RESULTS_PER_PAGE, stop=MAX_SEARCH_RESULTS, user_agent=get_random_user_agent()))
         prush("Found {} results for subject '{}'.".format(
             len(search_results), subject))
         return search_results
 
     success_count = 0
-    search_results = search()
+    search_results = _search()
     while success_count < doc_count:
-        if success_count % SUBJECT_BATCH_SIZE == 0:
-            search_results = search()
+        if success_count % SUBJECT_BATCH_SIZE == 0 and success_count != 0:
+            search_results = _search()
         success = False
         while not success:
-            result = choice(search_results)
-            if not result.link:
-                continue
-            prush("Accessing {}...".format(result.link))
+            random.seed()
+            search_result = random.choice(search_results)
+            prush("Accessing {}...".format(search_result))
             file_name = os.path.join(
-                os.getcwd(), destination_dir, hash(result.link) + ".txt")
+                os.getcwd(), destination_dir, hash(search_result) + ".txt")
             if os.path.exists(file_name):
                 prush("  File previously processed. Trying another...")
                 continue
             try:
-                response = urllib.request.urlopen(result.link)
-                raw_document = doc.Doc(response.read()).clean
+                response = urllib.request.urlopen(search_result)
+                raw_document = bytes(doc.Doc(response.read()).clean, 'utf-8')
                 document = raw_document.decode("utf-8", "strict")
             except Exception as e:
                 prush("  Error. {}\n  Trying another...".format(e))
@@ -105,7 +108,7 @@ def build_codex(doc_count=100, subjects_dir="research/data/arbitrary", destinati
                 continue
             with open(file_name, 'w') as f:
                 f.write(document)
-            prush("  Success! Written to {}".format(hash(result.link) + ".txt"))
+            prush("  Success! Written to {}".format(hash(search_result) + ".txt"))
             success = True
             success_count = success_count + 1
     prush("Done")
