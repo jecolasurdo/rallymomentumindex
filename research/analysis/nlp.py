@@ -12,7 +12,20 @@ PATH_TO_BLM = "research/data/elephrame/codex"
 nlp = spacy.load("en_core_web_lg")
 
 
-def load_documents(n=500):
+def _get_random_documents(base_path, count):
+    def pathto(base_path, *args):
+        return os.path.join(os.getcwd(), base_path, *args)
+
+    docs = []
+    file_names = [f for f in os.listdir(
+        pathto(base_path)) if os.path.isfile(pathto(base_path, f))]
+    for file_name in random.choices(file_names, k=count):
+        with open(pathto(base_path, file_name), 'r') as f:
+            docs.append(f.read())
+    return docs
+
+
+def load_documents(n=500, doc_accessor=_get_random_documents):
     """Returns the contents of n random documents from the arbitrary codex
     and n random documents from the elephrame codex (total documents == 2*n).
     The documents are returned as a single list with the arbitrary documents
@@ -23,6 +36,10 @@ def load_documents(n=500):
     n: int
         The number of documents to return for each codex (arbitrary and elephrame).
 
+    doc_accessor: func(str, int): list(str)
+        Something that knows how to return the contents of some number of documents
+        given a relative path and a number.
+
     Returns
     -------
     docs: list(str)
@@ -31,20 +48,8 @@ def load_documents(n=500):
         An array specifying the labels for the documents.
         0 == arbitrary, 1 == elephrame
     """
-    def pathto(base_path, *args):
-        return os.path.join(os.getcwd(), base_path, *args)
-
-    def get_random_documents(base_path, count):
-        docs = []
-        file_names = [f for f in os.listdir(
-            pathto(base_path)) if os.path.isfile(pathto(base_path, f))]
-        for file_name in random.choices(file_names, k=count):
-            with open(pathto(base_path, file_name), 'r') as f:
-                docs.append(f.read())
-        return docs
-
-    arbitrary_docs = get_random_documents(PATH_TO_ARBITRARY, n)
-    blm_docs = get_random_documents(PATH_TO_BLM, n)
+    arbitrary_docs = doc_accessor(PATH_TO_ARBITRARY, n)
+    blm_docs = doc_accessor(PATH_TO_BLM, n)
     docs = [*arbitrary_docs, *blm_docs]
     labels = np.concatenate((np.zeros(n), np.ones(n)))
     return docs, labels
