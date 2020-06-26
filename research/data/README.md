@@ -1,6 +1,6 @@
 # Contents of this directory
 
-## elephrame/raw_html/*
+## elephrame/raw_html/*.html
 Directory containing html scraped from elephrame.com. Each file contains the html
 rendered for a single page of results for the BLM protest listing at elephrame.
 
@@ -24,4 +24,5 @@ Fields:
  - Description: Same as extracted description with whitespace stripped.
  - URLs: Each URL is expanded to two fields, "hash" and "URL". The hash field is an md5 hash of the URL which can be used to cross reference the URL against its codex data (see codex section below). The URL is is the same as the extracted URL with whitespace removed. Whitespace is removed before calculating the URL hash value.
 
-## elephrame/codex/*
+## elephrame/codex/*.txt
+Directory containing the text extracted from raw html datafiles (see 'elephrame/raw_html/*.html`)

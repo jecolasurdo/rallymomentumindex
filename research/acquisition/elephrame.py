@@ -193,14 +193,14 @@ def clean(extracted_file="research/data/extracted.json"):
         f.write(json.dumps(cleaned, indent=2))
 
 
-def hydrate_codex():
+def build_codex():
     prush("Initializing...")
     loop = asyncio.get_event_loop()
-    loop.run_until_complete(_hydrate_codex())
+    loop.run_until_complete(_build_codex())
     loop.close()
 
 
-async def _hydrate_codex(clean_file="research/data/cleaned.json", url_timeout=10, max_consecutive_exceptions=10):
+async def _build_codex(clean_file="research/data/cleaned.json", url_timeout=10, max_consecutive_exceptions=10):
     prush("Loading cleaned data...")
     with open(os.path.join(os.getcwd(), clean_file), 'r') as f:
         reports = json.load(f)
