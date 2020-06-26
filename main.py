@@ -1,3 +1,3 @@
-from research import scraper
+from research.acquisition.arbitrary import build_codex 
 
-scraper.hydrate_codex()
+build_codex()
