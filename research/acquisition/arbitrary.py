@@ -4,20 +4,20 @@ that has no tie to any single specific topic.
 """
 
 import asyncio
-from datetime import datetime
 import json
 import os.path
 import random
 import time
+import urllib
+from datetime import datetime
 
 from googlesearch import get_random_user_agent
-from search_engines import *
 from lxml import html
+from search_engines import *
 from selenium import webdriver
-
-from research.acquisition.utils import prush, hash, time_limit
-import urllib
 from textpipe import doc
+
+from research.acquisition.utils import hash, prush, time_limit
 
 USNEWS = "http://usnews.com/topics/subjects"
 REQUEST_TIMEOUT = 30
@@ -61,13 +61,15 @@ def gather_subjects(destination_dir="research/data/arbitrary"):
         json.dump(list(subjects), f)
 
 
-def build_codex(doc_count=100, subjects_dir="research/data/arbitrary", destination_dir="research/data/arbitrary/codex"):
+def build_codex(doc_count=1000, subjects_dir="research/data/arbitrary", destination_dir="research/data/arbitrary/codex"):
     """Builds a set of documents by collecting arbitrary content from the web
     based on a provided list of subjects.
     """
     SUBJECT_BATCH_SIZE = 10     # Number of documents to try to retrieve for each subject-batch.
-    SEARCH_PAGES = 5            # Number of pages of results to request per engine per batch.
-    MIN_DOC_LENGTH = 200        # The minimum length (characters) for a document to be eligible for the codex.
+    # Number of pages of results to request per engine per batch.
+    SEARCH_PAGES = 5
+    # The minimum length (characters) for a document to be eligible for the codex.
+    MIN_DOC_LENGTH = 200
     ENGINE_COOLDOWN_TIME = 5
 
     subjects_file = os.path.join(
@@ -86,12 +88,13 @@ def build_codex(doc_count=100, subjects_dir="research/data/arbitrary", destinati
             engine_name = engine.__class__.__name__
             if not engine_name in engine_times:
                 break
-            time_since_last_use = (datetime.now() - engine_times[engine_name]).total_seconds()
+            time_since_last_use = (
+                datetime.now() - engine_times[engine_name]).total_seconds()
             if time_since_last_use < ENGINE_COOLDOWN_TIME:
-                prush("Engine {} used too recently. Trying another...")
+                prush("Engine '{}' used too recently. Trying another...".format(engine_name))
             else:
                 break
-            
+
         engine.set_headers({'User-Agent': get_random_user_agent()})
         # internally intepreted as sleep(random_uniform(*self._delay))
         # This value set low (or zero) since we pause between use of each
