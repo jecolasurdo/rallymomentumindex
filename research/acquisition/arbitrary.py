@@ -4,17 +4,18 @@ that has no tie to any single specific topic.
 """
 
 import asyncio
+from datetime import datetime
 import json
 import os.path
 import random
 import time
 
 from googlesearch import get_random_user_agent
-from search_engines import Yahoo
+from search_engines import *
 from lxml import html
 from selenium import webdriver
 
-from research.acquisition.utils import prush, hash
+from research.acquisition.utils import prush, hash, time_limit
 import urllib
 from textpipe import doc
 
@@ -24,6 +25,16 @@ ASYNC_REQUEST_LIMIT = 25
 PAGE_LOAD_WAIT = 1
 SUBJECT_XPATH = "//div[{}]/ul/li/a/text()"
 
+search_engines = [
+    Ask,
+    Bing,
+    Dogpile,
+    Duckduckgo,
+    Google,
+    Mojeek,
+    Startpage,
+    Yahoo
+]
 
 def gather_subjects(destination_dir="research/data/arbitrary"):
     """Scrapes a list of random news topics from usnews.com/topics and saves
@@ -63,20 +74,17 @@ def build_codex(doc_count=40, subjects_dir="research/data/arbitrary", destinatio
         subjects = json.load(f)
 
     def _search():
-        # Waiting a moment before hitting the search API again
-        # trying to avoid rate limits. Using a guass distribution to give
-        # some jitter to the wait times to make us look a little less
-        # uniform to the engine of choice. This wait is in addition to the
-        # waiter implemented internally within engine.search(), so that we can
-        # control time betwen calls to an engine in addition to calls within
-        # the engine.
         random.seed()
         pause = random.gauss(3, 1)
-        prush("Pausing for {} seconds to avoid rate limits...".format(round(pause,10)))
+        prush("Pausing for {} seconds...".format(round(pause,1)))
         time.sleep(pause)
         subject = random.choice(subjects) + " news"
-        engine = Yahoo()
+        engine = random.choice(search_engines)()
         engine.set_headers({'User-Agent':get_random_user_agent()})
+        # internally intepreted as sleep(random_uniform(*self._delay))
+        # This value set low (or zero) since we pause between use of each
+        # engine (above).
+        engine._delay = (0, 0)
         prush("Searching for subject '{}'...".format(subject))
         search_results = engine.search(subject, pages=SEARCH_PAGES).links()
         prush("Found {} results for subject '{}'.".format(
@@ -86,6 +94,8 @@ def build_codex(doc_count=40, subjects_dir="research/data/arbitrary", destinatio
     success_count = 0
     search_results = _search()
     while success_count < doc_count:
+        if success_count % 10 == 0:
+            prush("{}: {} docs processed. {}% complete.".format(datetime.now(), success_count, 100 * round(success_count / doc_count, 2)))
         if success_count % SUBJECT_BATCH_SIZE == 0 and success_count != 0:
             search_results = _search()
         # We try to maintain a buffer above the minumum number of results required
@@ -110,7 +120,8 @@ def build_codex(doc_count=40, subjects_dir="research/data/arbitrary", destinatio
                 prush("  File previously processed. Trying another...")
                 continue
             try:
-                response = urllib.request.urlopen(search_result)
+                with time_limit(REQUEST_TIMEOUT):
+                    response = urllib.request.urlopen(search_result)
                 raw_document = bytes(doc.Doc(response.read()).clean, 'utf-8')
                 document = raw_document.decode("utf-8", "strict")
             except Exception as e:

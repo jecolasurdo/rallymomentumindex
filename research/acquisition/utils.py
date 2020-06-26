@@ -1,6 +1,8 @@
 
 import hashlib
 import sys
+import signal
+from contextlib import contextmanager
 
 
 def first(items):
@@ -14,3 +16,17 @@ def hash(s):
 def prush(*args):
     print(*args)
     sys.stdout.flush()
+
+
+class TimeoutException(Exception): pass
+
+@contextmanager
+def time_limit(seconds):
+    def signal_handler(signum, frame):
+        raise TimeoutException("Timed out!")
+    signal.signal(signal.SIGALRM, signal_handler)
+    signal.alarm(seconds)
+    try:
+        yield
+    finally:
+        signal.alarm(0)
