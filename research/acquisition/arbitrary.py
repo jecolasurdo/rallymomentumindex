@@ -68,22 +68,39 @@ def build_codex(doc_count=100, subjects_dir="research/data/arbitrary", destinati
     SUBJECT_BATCH_SIZE = 10     # Number of documents to try to retrieve for each subject-batch.
     SEARCH_PAGES = 5            # Number of pages of results to request per engine per batch.
     MIN_DOC_LENGTH = 200        # The minimum length (characters) for a document to be eligible for the codex.
+    ENGINE_COOLDOWN_TIME = 5
 
     subjects_file = os.path.join(
         os.getcwd(), subjects_dir, "usnews_subjects.json")
     with open(subjects_file, 'r') as f:
         subjects = json.load(f)
 
+    engine_times = dict()
+
     def _search():
-        subject = random.choice(subjects) + " news"
-        engine = random.choice(search_engines)()
+        time_since_last_use = 0
+        prush("Selecting an engine...")
+        engine_name = ""
+        while True:
+            engine = random.choice(search_engines)()
+            engine_name = engine.__class__.__name__
+            if not engine_name in engine_times:
+                break
+            time_since_last_use = (datetime.now() - engine_times[engine_name]).total_seconds()
+            if time_since_last_use < ENGINE_COOLDOWN_TIME:
+                prush("Engine {} used too recently. Trying another...")
+            else:
+                break
+            
         engine.set_headers({'User-Agent': get_random_user_agent()})
         # internally intepreted as sleep(random_uniform(*self._delay))
         # This value set low (or zero) since we pause between use of each
         # engine (above).
         engine._delay = (0, 0)
+        subject = random.choice(subjects) + " news"
         prush("Searching for subject '{}'...".format(subject))
         search_results = engine.search(subject, pages=SEARCH_PAGES).links()
+        engine_times[engine_name] = datetime.now()
         prush("Found {} results for subject '{}'.".format(
             len(search_results), subject))
         return search_results
