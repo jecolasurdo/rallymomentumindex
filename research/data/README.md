@@ -1,8 +1,7 @@
 # Contents of this directory
 
 ## elephrame/raw_html/*.html
-Directory containing html scraped from elephrame.com. Each file contains the html
-rendered for a single page of results for the BLM protest listing at elephrame.
+Directory containing html scraped from elephrame.com. Each file contains the html rendered for a single page of results for the BLM protest listing at elephrame.
 
 ## elephrame/extracted.json
 Structured data extracted from the contents of the `raw_html` directory.
@@ -26,3 +25,6 @@ Fields:
 
 ## elephrame/codex/*.txt
 Directory containing the text extracted from raw html datafiles (see 'elephrame/raw_html/*.html`)
+
+## arbitrary/codex/*.txt
+Directory containing the text extracted from the html from a semi-random assortment of news subjects and random selection of search engines.
