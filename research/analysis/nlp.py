@@ -1,10 +1,10 @@
-from concurrent.futures import ThreadPoolExecutor, wait
 import os
 import random
+from concurrent.futures import ThreadPoolExecutor, wait
 
 import numpy as np
-import scipy as sp
 import spacy
+from scipy import sparse
 
 PATH_TO_ARBITRARY = "research/data/arbitrary/codex"
 PATH_TO_BLM = "research/data/elephrame/codex"
@@ -65,11 +65,11 @@ def text_to_entities(text):
         tokens = entity.split()
         if len(tokens) > 4:
             continue
-        if tokens[0] in ["a", "an", "the"]: 
+        if tokens[0] in ["a", "an", "the"]:
             if len(tokens) == 1:
                 continue
             entity = " ".join(tokens[1:])
-        pruned_entities.add(entity) 
+        pruned_entities.add(entity)
     return pruned_entities
 
 
@@ -125,8 +125,8 @@ def bag_of_entities(documents, factorized_entities):
         return vector
 
     # using a csr matrix because sp.sparse.vstack is optimized for csr matrices.
-    M = sp.sparse.csr_matrix()
+    M = sparse.csr_matrix((0,len(factorized_entities)))
     for document in documents:
-        v = sp.sparse.csr_matrix(doc_to_vector(document, factorized_entities))
-        M = sp.sparse.vstack([M, v])
+        v = sparse.csr_matrix(doc_to_vector(document, factorized_entities))
+        M = sparse.vstack([M, v])
     return M
