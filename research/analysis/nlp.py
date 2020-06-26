@@ -58,8 +58,6 @@ def text_to_entities(text):
     entities = {t.lower_ for t in [span for span in spans]}
     pruned_entities = set()
     for entity in entities:
-        if len(entity) > 30:
-            continue
         if len(entity) < 4:
             continue
         tokens = entity.split()
@@ -68,7 +66,16 @@ def text_to_entities(text):
         if tokens[0] in ["a", "an", "the"]:
             if len(tokens) == 1:
                 continue
-            entity = " ".join(tokens[1:])
+            tokens = tokens[1:]
+        ok = True
+        for token in tokens:
+            if len(token) > 30:
+                ok = False 
+                break
+        if ok:
+            entity = " ".join(tokens)
+        else:
+            continue
         pruned_entities.add(entity)
     return pruned_entities
 
