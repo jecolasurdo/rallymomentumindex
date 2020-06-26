@@ -1,3 +1,4 @@
+from concurrent.futures import ThreadPoolExecutor, wait
 import os
 import random
 
@@ -74,10 +75,19 @@ def extract_entity_id_map(documents, extractor=text_to_entities):
     -------
     dict(str:int)
     """
+
     entity_set = set()
-    for d in documents:
-        entity_set = entity_set.union(extractor(d))
-    return {entity: entity_id for (entity, entity_id) in enumerate(entity_set)}
+    futures = []
+    with ThreadPoolExecutor() as e:
+        for document in documents:
+            futures.append(e.submit(extractor, document))
+    done, not_done = wait(futures, return_when="FIRST_EXCEPTION")
+    for d in done:
+        if d.exception():
+            [n.cancel() for n in not_done]
+            raise d.exception()
+        entity_set = entity_set.union(d.result())
+    return {entity_id: entity for (entity, entity_id) in enumerate(entity_set)}
 
 
 def bag_of_entities(documents, factorized_entities):
