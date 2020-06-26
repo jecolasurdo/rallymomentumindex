@@ -65,9 +65,9 @@ def build_codex(doc_count=100, subjects_dir="research/data/arbitrary", destinati
     """Builds a set of documents by collecting arbitrary content from the web
     based on a provided list of subjects.
     """
-    SUBJECT_BATCH_SIZE = 10
-    SEARCH_PAGES = 5
-    MIN_DOC_LENGTH = 200
+    SUBJECT_BATCH_SIZE = 10     # Number of documents to try to retrieve for each subject-batch.
+    SEARCH_PAGES = 5            # Number of pages of results to request per engine per batch.
+    MIN_DOC_LENGTH = 200        # The minimum length (characters) for a document to be eligible for the codex.
 
     subjects_file = os.path.join(
         os.getcwd(), subjects_dir, "usnews_subjects.json")
@@ -75,10 +75,6 @@ def build_codex(doc_count=100, subjects_dir="research/data/arbitrary", destinati
         subjects = json.load(f)
 
     def _search():
-        random.seed()
-        pause = random.gauss(3, 1)
-        prush("Pausing for {} seconds...".format(round(pause, 1)))
-        time.sleep(pause)
         subject = random.choice(subjects) + " news"
         engine = random.choice(search_engines)()
         engine.set_headers({'User-Agent': get_random_user_agent()})
@@ -115,13 +111,13 @@ def build_codex(doc_count=100, subjects_dir="research/data/arbitrary", destinati
             random.seed()
             search_result = random.choice(search_results)
             search_results.remove(search_result)
+            prush("Accessing {}...".format(search_result))
             if "youtube.com" in search_result:
                 prush("  Appears to be a YouTube result. Trying another...")
                 continue
             if search_result[:-3] == "pdf":
                 prush("  Appears to be a PDF. Trying another...")
                 continue
-            prush("Accessing {}...".format(search_result))
             file_name = os.path.join(
                 os.getcwd(), destination_dir, hash(search_result) + ".txt")
             if os.path.exists(file_name):
@@ -144,4 +140,4 @@ def build_codex(doc_count=100, subjects_dir="research/data/arbitrary", destinati
                 hash(search_result) + ".txt"))
             success = True
             success_count = success_count + 1
-    prush("Done")
+    prush(datetime.now(), "Done")
