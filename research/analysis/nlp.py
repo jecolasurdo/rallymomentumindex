@@ -56,7 +56,21 @@ def text_to_entities(text):
     spans = spacy.util.filter_spans(
         set(doc.ents).union(set(doc.noun_chunks)))
     entities = {t.lower_ for t in [span for span in spans]}
-    return entities
+    pruned_entities = set()
+    for entity in entities:
+        if len(entity) > 30:
+            continue
+        if len(entity) < 4:
+            continue
+        tokens = entity.split()
+        if len(tokens) > 4:
+            continue
+        if tokens[0] in ["a", "an", "the"]: 
+            if len(tokens) == 1:
+                continue
+            entity = " ".join(tokens[1:])
+        pruned_entities.add(entity) 
+    return pruned_entities
 
 
 def extract_entity_id_map(documents, extractor=text_to_entities):
