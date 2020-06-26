@@ -9,7 +9,8 @@ import os.path
 import random
 import time
 
-from googlesearch import search, get_random_user_agent
+from googlesearch import get_random_user_agent
+from search_engines import Yahoo
 from lxml import html
 from selenium import webdriver
 
@@ -48,13 +49,12 @@ def gather_subjects(destination_dir="research/data/arbitrary"):
         json.dump(list(subjects), f)
 
 
-def build_codex(doc_count=100, subjects_dir="research/data/arbitrary", destination_dir="research/data/arbitrary/codex"):
+def build_codex(doc_count=40, subjects_dir="research/data/arbitrary", destination_dir="research/data/arbitrary/codex"):
     """Builds a set of documents by collecting arbitrary content from the web
     based on a provided list of subjects.
     """
-    SUBJECT_BATCH_SIZE = 5
-    MAX_SEARCH_RESULTS = 100
-    SEARCH_RESULTS_PER_PAGE = 100
+    SUBJECT_BATCH_SIZE = 10
+    SEARCH_PAGES=5
     MIN_DOC_LENGTH = 200
 
     subjects_file = os.path.join(
@@ -66,17 +66,19 @@ def build_codex(doc_count=100, subjects_dir="research/data/arbitrary", destinati
         # Waiting a moment before hitting the search API again
         # trying to avoid rate limits. Using a guass distribution to give
         # some jitter to the wait times to make us look a little less
-        # uniform to google. googlesearch.search() implements an internal
-        # waiter, but we need to control the waits from outside the function
-        # since the internal waiter doesn't account for successive calls to the
-        # function itself.
+        # uniform to the engine of choice. This wait is in addition to the
+        # waiter implemented internally within engine.search(), so that we can
+        # control time betwen calls to an engine in addition to calls within
+        # the engine.
         random.seed()
         pause = random.gauss(3, 1)
-        prush("Pausing for {} seconds to avoid rate limits...".format(round(pause,2)))
+        prush("Pausing for {} seconds to avoid rate limits...".format(round(pause,10)))
         time.sleep(pause)
         subject = random.choice(subjects) + " news"
+        engine = Yahoo()
+        engine.set_headers({'User-Agent':get_random_user_agent()})
         prush("Searching for subject '{}'...".format(subject))
-        search_results = list(search(subject, num=SEARCH_RESULTS_PER_PAGE, stop=MAX_SEARCH_RESULTS, user_agent=get_random_user_agent()))
+        search_results = engine.search(subject, pages=SEARCH_PAGES).links()
         prush("Found {} results for subject '{}'.".format(
             len(search_results), subject))
         return search_results
@@ -86,10 +88,21 @@ def build_codex(doc_count=100, subjects_dir="research/data/arbitrary", destinati
     while success_count < doc_count:
         if success_count % SUBJECT_BATCH_SIZE == 0 and success_count != 0:
             search_results = _search()
+        # We try to maintain a buffer above the minumum number of results required
+        # so we 1) can choose some results at random (not just take all results) and
+        # 2) can account for the fact that some of the links will not return 200.
+        if len(search_results) < SUBJECT_BATCH_SIZE * 2:
+            prush("Not enough results for subject. Trying another...")
+            search_results = _search()
+            continue
         success = False
         while not success:
+            if len(search_results) == 0:
+                prush("Exhausted search results for this subject. Trying another...")
+                break
             random.seed()
             search_result = random.choice(search_results)
+            search_results.remove(search_result)
             prush("Accessing {}...".format(search_result))
             file_name = os.path.join(
                 os.getcwd(), destination_dir, hash(search_result) + ".txt")
