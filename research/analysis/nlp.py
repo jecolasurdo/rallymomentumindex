@@ -50,7 +50,7 @@ def load_documents(n=500):
     return docs, labels
 
 
-def text_to_entities(text):
+def _text_to_entities(text):
     """Extract a set of named entities from the supplied text."""
     doc = nlp(text)
     spans = spacy.util.filter_spans(
@@ -70,7 +70,7 @@ def text_to_entities(text):
         ok = True
         for token in tokens:
             if len(token) > 30:
-                ok = False 
+                ok = False
                 break
         if ok:
             entity = " ".join(tokens)
@@ -80,7 +80,7 @@ def text_to_entities(text):
     return pruned_entities
 
 
-def extract_entity_id_map(documents, extractor=text_to_entities):
+def extract_entity_id_map(documents, extractor=_text_to_entities):
     """Returns a dictionary of named entities extracted from the supplied
     documents along with an id (factor) representing each entity.
 
@@ -111,7 +111,14 @@ def extract_entity_id_map(documents, extractor=text_to_entities):
     return {entity_id: entity for (entity, entity_id) in enumerate(entity_set)}
 
 
-def bag_of_entities(documents, factorized_entities):
+def _doc_to_vector(document, factorized_entities):
+    vector = np.zeros(len(factorized_entities))
+    for entity, entity_id in factorized_entities.items():
+        vector[entity_id] = document.count(entity)
+    return vector
+
+
+def bag_of_entities(documents, factorized_entities, vectorizer=_doc_to_vector):
     """Converts a list of raw documents into a sparse matrix of the entity
     vectors for each document.
 
@@ -121,19 +128,16 @@ def bag_of_entities(documents, factorized_entities):
 
     factorized_entities: dict(str:int)
 
+    vectorizer: func(str, dict(str:int)) -> array(int)
+
     Returns
     -------
     scipy.sparse.csr_matrix
     """
-    def doc_to_vector(document, factorized_entities):
-        vector = np.zeros(len(factorized_entities))
-        for entity, entity_id in factorized_entities.items():
-            vector[entity_id] = document.count(entity)
-        return vector
 
     # using a csr matrix because sp.sparse.vstack is optimized for csr matrices.
-    M = sparse.csr_matrix((0,len(factorized_entities)))
+    M = sparse.csr_matrix((0, len(factorized_entities)))
     for document in documents:
-        v = sparse.csr_matrix(doc_to_vector(document, factorized_entities))
+        v = sparse.csr_matrix(_doc_to_vector(document, factorized_entities))
         M = sparse.vstack([M, v])
     return M
