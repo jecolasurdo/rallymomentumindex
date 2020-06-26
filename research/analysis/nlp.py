@@ -8,6 +8,8 @@ from scipy import sparse
 
 PATH_TO_ARBITRARY = "research/data/arbitrary/codex"
 PATH_TO_BLM = "research/data/elephrame/codex"
+AXIS_DOCS = 0
+AXIS_ENTS = 1 
 
 nlp = spacy.load("en_core_web_lg")
 
@@ -146,3 +148,13 @@ def bag_of_entities(documents, factorized_entities, vectorizer=_doc_to_vector):
         v = sparse.csr_matrix(_doc_to_vector(document, factorized_entities))
         M = sparse.vstack([M, v])
     return M
+
+def tfidf(M):
+    tf = sparse.csr_matrix(M / M.sum(axis=AXIS_ENTS))
+    N = M.shape[AXIS_DOCS]
+    Nt = np.ravel(M.astype(bool).sum(axis=AXIS_DOCS))
+    idf = sparse.csr_matrix(np.log10(N/Nt))
+    M1 = tf.multiply(idf)
+    M1.data = np.nan_to_num(M1.data)
+    M1.eliminate_zeros()
+    return M1
