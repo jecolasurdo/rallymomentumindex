@@ -1,3 +1,5 @@
-from research.acquisition.arbitrary import build_codex 
+from research.analysis import nlp
 
-build_codex()
+docs, labels = nlp.load_documents(n=10)
+entity_map = nlp.extract_entity_id_map(docs)
+pass

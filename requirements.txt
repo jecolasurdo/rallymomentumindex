@@ -1,6 +1,7 @@
 wheel
 pytest
 pylint
+autopep8
 jupyter
 
 google==2.0.3
