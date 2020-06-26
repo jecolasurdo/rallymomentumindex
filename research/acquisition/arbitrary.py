@@ -36,6 +36,7 @@ search_engines = [
     Yahoo
 ]
 
+
 def gather_subjects(destination_dir="research/data/arbitrary"):
     """Scrapes a list of random news topics from usnews.com/topics and saves
     them in json format on disk.
@@ -60,12 +61,12 @@ def gather_subjects(destination_dir="research/data/arbitrary"):
         json.dump(list(subjects), f)
 
 
-def build_codex(doc_count=40, subjects_dir="research/data/arbitrary", destination_dir="research/data/arbitrary/codex"):
+def build_codex(doc_count=100, subjects_dir="research/data/arbitrary", destination_dir="research/data/arbitrary/codex"):
     """Builds a set of documents by collecting arbitrary content from the web
     based on a provided list of subjects.
     """
     SUBJECT_BATCH_SIZE = 10
-    SEARCH_PAGES=5
+    SEARCH_PAGES = 5
     MIN_DOC_LENGTH = 200
 
     subjects_file = os.path.join(
@@ -76,11 +77,11 @@ def build_codex(doc_count=40, subjects_dir="research/data/arbitrary", destinatio
     def _search():
         random.seed()
         pause = random.gauss(3, 1)
-        prush("Pausing for {} seconds...".format(round(pause,1)))
+        prush("Pausing for {} seconds...".format(round(pause, 1)))
         time.sleep(pause)
         subject = random.choice(subjects) + " news"
         engine = random.choice(search_engines)()
-        engine.set_headers({'User-Agent':get_random_user_agent()})
+        engine.set_headers({'User-Agent': get_random_user_agent()})
         # internally intepreted as sleep(random_uniform(*self._delay))
         # This value set low (or zero) since we pause between use of each
         # engine (above).
@@ -95,7 +96,8 @@ def build_codex(doc_count=40, subjects_dir="research/data/arbitrary", destinatio
     search_results = _search()
     while success_count < doc_count:
         if success_count % 10 == 0:
-            prush("{}: {} docs processed. {}% complete.".format(datetime.now(), success_count, 100 * round(success_count / doc_count, 2)))
+            prush("\n{}: {} docs processed. {}% complete.\n".format(
+                datetime.now(), success_count, 100 * round(success_count / doc_count, 2)))
         if success_count % SUBJECT_BATCH_SIZE == 0 and success_count != 0:
             search_results = _search()
         # We try to maintain a buffer above the minumum number of results required
@@ -113,11 +115,17 @@ def build_codex(doc_count=40, subjects_dir="research/data/arbitrary", destinatio
             random.seed()
             search_result = random.choice(search_results)
             search_results.remove(search_result)
+            if "youtube.com" in search_result:
+                prush("  Appears to be a YouTube result. Trying another...")
+                continue
+            if search_result[:-3] == "pdf":
+                prush("  Appears to be a PDF. Trying another...")
+                continue
             prush("Accessing {}...".format(search_result))
             file_name = os.path.join(
                 os.getcwd(), destination_dir, hash(search_result) + ".txt")
             if os.path.exists(file_name):
-                prush("  File previously processed. Trying another...")
+                prush("  URL previously ingested. Trying another...")
                 continue
             try:
                 with time_limit(REQUEST_TIMEOUT):
@@ -132,7 +140,8 @@ def build_codex(doc_count=40, subjects_dir="research/data/arbitrary", destinatio
                 continue
             with open(file_name, 'w') as f:
                 f.write(document)
-            prush("  Success! Written to {}".format(hash(search_result) + ".txt"))
+            prush("  Success! Written to {}".format(
+                hash(search_result) + ".txt"))
             success = True
             success_count = success_count + 1
     prush("Done")
