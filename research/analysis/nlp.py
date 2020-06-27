@@ -5,11 +5,12 @@ from concurrent.futures import ThreadPoolExecutor, wait
 import numpy as np
 import spacy
 from scipy import sparse
+from sklearn.model_selection import train_test_split
 
 PATH_TO_ARBITRARY = "research/data/arbitrary/codex"
 PATH_TO_BLM = "research/data/elephrame/codex"
 AXIS_DOCS = 0
-AXIS_ENTS = 1 
+AXIS_ENTS = 1
 
 nlp = spacy.load("en_core_web_lg")
 
@@ -148,6 +149,7 @@ def bag_of_entities(documents, factorized_entities, vectorizer=_doc_to_vector):
         v = sparse.csr_matrix(_doc_to_vector(document, factorized_entities))
         M = sparse.vstack([M, v])
     return M
+
 
 def tfidf(M):
     tf = sparse.csr_matrix(M / M.sum(axis=AXIS_ENTS))
