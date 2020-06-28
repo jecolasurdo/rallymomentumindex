@@ -6,7 +6,8 @@ import numpy as np
 import spacy
 from scipy import sparse
 from sklearn.model_selection import train_test_split
-from research.acquisition.utils import prush
+
+from research.utils import pathto, prush
 
 PATH_TO_ARBITRARY = "research/data/arbitrary/codex"
 PATH_TO_BLM = "research/data/elephrame/codex"
@@ -17,9 +18,6 @@ nlp = spacy.load("en_core_web_lg")
 
 
 def _get_random_documents(base_path, count):
-    def pathto(base_path, *args):
-        return os.path.join(os.getcwd(), base_path, *args)
-
     docs = []
     file_names = [f for f in os.listdir(
         pathto(base_path)) if os.path.isfile(pathto(base_path, f))]

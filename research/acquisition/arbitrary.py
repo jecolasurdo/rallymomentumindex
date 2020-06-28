@@ -17,7 +17,7 @@ from search_engines import *
 from selenium import webdriver
 from textpipe import doc
 
-from research.acquisition.utils import hash, prush, time_limit
+from research.utils import hash, prush, time_limit
 
 USNEWS = "http://usnews.com/topics/subjects"
 REQUEST_TIMEOUT = 30

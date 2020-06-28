@@ -17,7 +17,7 @@ from selenium import webdriver
 from textpipe import doc
 
 from research.acquisition import fmt, utils
-from research.acquisition.utils import prush
+from research.utils import prush
 
 BASE_URL = "https://elephrame.com/textbook/BLM/chart"
 PAGE_XPATH = "//div[@id='blm-results']/div/ul/li[3]/input"
