@@ -11,10 +11,18 @@ from research.utils import pathto, prush
 
 PATH_TO_ARBITRARY = "research/data/arbitrary/codex"
 PATH_TO_BLM = "research/data/elephrame/codex"
+PATH_TO_WORDS = "research/data"
 AXIS_DOCS = 0
 AXIS_ENTS = 1
 
 nlp = spacy.load("en_core_web_lg")
+
+
+def load_words():
+    '''Returns a set of english words. See https://github.com/dwyl/english-words
+    '''
+    with open(pathto(os.getcwd(), PATH_TO_WORDS, 'words_alpha.txt'), 'r') as f:
+        return set(f.read().split())
 
 
 def _get_random_documents(base_path, count):
@@ -25,8 +33,8 @@ def _get_random_documents(base_path, count):
         try:
             with open(pathto(base_path, file_name), 'r') as f:
                 docs.append(f.read())
-        except:
-            prush("Error while trying to read file. Continuing anyway.")
+        except Exception as e:
+            raise Exception("Halting. An error occurred while trying ingest file {}.".format(file_name), e)
     return docs
 
 
@@ -65,8 +73,7 @@ def _text_to_tokens(text):
     try:
         doc = nlp(text)
     except Exception as e:
-        prush("Warning: Error while tokenizing text. Skipping.")
-        return tokens
+        raise Exception("Halting. An error occurred while trying to tokenize a document.", e)
     for token in doc:
         if len(token) > 30:
             continue
@@ -112,7 +119,7 @@ def _text_to_entities(text):
     return pruned_entities
 
 
-def extract_entity_id_map(documents, extractor=_text_to_entities):
+def extract_entity_id_map(documents, lexicon=None, extractor=_text_to_entities):
     """Returns a dictionary of named entities extracted from the supplied
     documents along with an id (factor) representing each entity.
 
@@ -121,6 +128,10 @@ def extract_entity_id_map(documents, extractor=_text_to_entities):
     documents: list(str)
         List of texts from which to extract the entities.
 
+    lexicon: set(str)
+        An exhaustive set of words to which the resulting entity map is constrained.
+        If None, the results are unconstrained.
+
     extractor: func(str)->str
         Entity extraction behavior (mostly overridden for testing).
 
@@ -128,7 +139,6 @@ def extract_entity_id_map(documents, extractor=_text_to_entities):
     -------
     dict(str:int)
     """
-
     entity_set = set()
     futures = []
     with ThreadPoolExecutor() as e:
@@ -140,6 +150,8 @@ def extract_entity_id_map(documents, extractor=_text_to_entities):
             [n.cancel() for n in not_done]
             raise d.exception()
         entity_set = entity_set.union(d.result())
+    if lexicon:
+        entity_set = entity_set.intersection(lexicon)
     return {entity_id: entity for (entity, entity_id) in enumerate(entity_set)}
 
 
