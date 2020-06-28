@@ -6,6 +6,7 @@ import numpy as np
 import spacy
 from scipy import sparse
 from sklearn.model_selection import train_test_split
+from research.acquisition.utils import prush
 
 PATH_TO_ARBITRARY = "research/data/arbitrary/codex"
 PATH_TO_BLM = "research/data/elephrame/codex"
@@ -23,8 +24,11 @@ def _get_random_documents(base_path, count):
     file_names = [f for f in os.listdir(
         pathto(base_path)) if os.path.isfile(pathto(base_path, f))]
     for file_name in random.choices(file_names, k=count):
-        with open(pathto(base_path, file_name), 'r') as f:
-            docs.append(f.read())
+        try:
+            with open(pathto(base_path, file_name), 'r') as f:
+                docs.append(f.read())
+        except:
+            prush("Error while trying to read file. Continuing anyway.")
     return docs
 
 
@@ -56,6 +60,28 @@ def load_documents(n=500, doc_accessor=_get_random_documents):
     docs = [*arbitrary_docs, *blm_docs]
     labels = np.concatenate((np.zeros(n), np.ones(n)))
     return docs, labels
+
+
+def _text_to_tokens(text):
+    tokens = set()
+    try:
+        doc = nlp(text)
+    except Exception as e:
+        prush("Warning: Error while tokenizing text. Skipping.")
+        return tokens
+    for token in doc:
+        if len(token) > 30:
+            continue
+        if token.is_stop:
+            continue
+        if not token.is_ascii:
+            continue
+        if not token.is_alpha:
+            continue
+        if not token.lang_ == 'en':
+            continue
+        tokens.add(token.lower_)
+    return tokens
 
 
 def _text_to_entities(text):
@@ -155,7 +181,7 @@ def tfidf(M):
     tf = sparse.csr_matrix(M / M.sum(axis=AXIS_ENTS))
     N = M.shape[AXIS_DOCS]
     Nt = np.ravel(M.astype(bool).sum(axis=AXIS_DOCS))
-    idf = sparse.csr_matrix(np.log10(N/Nt))
+    idf = sparse.csr_matrix(1 + np.log10(N/(1+ Nt)))
     M1 = tf.multiply(idf)
     M1.data = np.nan_to_num(M1.data)
     M1.eliminate_zeros()
